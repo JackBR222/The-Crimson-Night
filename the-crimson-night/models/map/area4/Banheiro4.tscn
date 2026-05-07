@@ -52,12 +52,13 @@ transform = Transform3D(0.9, 0, 0, 0, 0.9, 0, 0, 0, 0.9, 0, 0, 0)
 
 [node name="Banheiro" parent="." index="0" unique_id=24351220]
 transform = Transform3D(283.83334, 0, 0, 0, -3.383557e-05, 283.8333, 0, -283.8333, -3.383557e-05, 3, 6.959886, 1)
+visibility_range_end = 75.0
 mesh = SubResource("ArrayMesh_86cmt")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="." index="1" unique_id=1181495245]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0" unique_id=251594604]
-transform = Transform3D(15.768519, 0, 0, 0, -1.879754e-06, 15.768518, 0, -15.768518, -1.879754e-06, 0.16666667, 0.38666037, 0.05555556)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0" unique_id=1877019185]
+transform = Transform3D(283.83334, 0, 0, 0, -3.383557e-05, 283.8333, 0, -283.8333, -3.383557e-05, 3, 6.9598866, 1)
 shape = SubResource("ConcavePolygonShape3D_nbebv")
 
 [node name="NavigationObstacle3D" type="NavigationObstacle3D" parent="." index="2" unique_id=624540217]

@@ -52,6 +52,7 @@ transform = Transform3D(0.06, 0, 0, 0, 0.06, 0, 0, 0, 0.06, 0, 0, 0)
 
 [node name="Telhado Centro" parent="." index="0" unique_id=1144893341]
 transform = Transform3D(3.5762787e-05, 105.05605, 3.7402166e-05, -99.99999, 3.7570975e-05, 1.0919306e-11, -1.4210855e-12, -2.0455167e-05, 192.09447, 0.69068927, 83.23544, -0.46702576)
+visibility_range_end = 75.0
 mesh = SubResource("ArrayMesh_3ac6c")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="." index="1" unique_id=2039290501]

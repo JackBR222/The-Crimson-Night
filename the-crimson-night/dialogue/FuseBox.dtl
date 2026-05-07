@@ -1,6 +1,6 @@
-if {player_item_type} == "FuseBoxKey":
+if {player_item_type} == "Key":
 	Abriu!
-	[signal arg="consume:FuseBoxKey"]
+	[signal arg="consume:Key"]
 	[signal arg="change_timeline_alt"]
 	[signal arg="change_model_alt"]
 else:

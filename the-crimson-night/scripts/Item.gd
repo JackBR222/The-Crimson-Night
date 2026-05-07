@@ -4,8 +4,8 @@ class_name Item
 @export var item_type: String = "generic"
 @export var start_invisible: bool = false
 
-@export var hold_offset: Vector3 = Vector3(0.35, -0.35, -0.9)
-@export var hold_rotation: Vector3 = Vector3(-15, 45, 0)
+@export var hold_offset: Vector3 = Vector3(0, 0, 0)
+@export var hold_rotation: Vector3 = Vector3(0, 0, 0)
 
 # VISUAL
 @export var glow_speed: float = 3.0
@@ -15,11 +15,15 @@ class_name Item
 @export var pulse_visible_time: float = 0.5
 @export var pulse_hidden_time: float = 2.0
 
-# 🔊 SOM
+# SOM
 @export var pickup_sound: AudioStream
 
-# 🧾 ÍCONE UI
+# ÍCONE UI
 @export var item_icon: Texture2D
+
+# ÍCONE VAZIO
+@export var empty_icon_texture: Texture2D
+@export var use_empty_icon: bool = true
 
 var is_being_held := false
 var is_targeted := false
@@ -51,9 +55,11 @@ func _exit_tree() -> void:
 func _ready() -> void:
 	original_position = global_position
 	original_rotation = global_rotation
+
 	freeze = true
 
 	icon.visible = false
+
 	add_child(audio)
 
 	if glow_sprite:
@@ -63,6 +69,11 @@ func _ready() -> void:
 		set_item_visible(false)
 
 	Dialogic.signal_event.connect(_on_dialogic_signal)
+
+	var player = get_tree().get_first_node_in_group("player")
+
+	if player and player is PlayerController:
+		_update_ui_icon(player)
 
 
 func _process(delta: float) -> void:
@@ -75,8 +86,12 @@ func _update_glow(delta: float) -> void:
 		return
 
 	glow_time += delta * glow_speed
+
 	if mesh and mesh.material_override:
-		mesh.material_override.emission_energy = 0.2 + (sin(glow_time) + 1.0) * 0.5 * glow_strength
+		mesh.material_override.emission_energy = (
+			0.2 +
+			(sin(glow_time) + 1.0) * 0.5 * glow_strength
+		)
 
 
 func set_targeted(state: bool) -> void:
@@ -106,6 +121,7 @@ func interact(player: Node) -> void:
 
 	if player.held_item == null:
 		_pick_up(player)
+
 	elif player.held_item != self:
 		_swap_with_player(player)
 
@@ -115,28 +131,47 @@ func interact(player: Node) -> void:
 # DIALOGIC SISTEMA DE SINAL
 func _on_dialogic_signal(argument: String) -> void:
 	var parts = argument.split(":")
+
 	if parts.size() < 2 or not item_registry.has(parts[1]):
 		return
 
 	var item = item_registry[parts[1]]
 
 	match parts[0]:
-		"reveal": item.set_item_visible(true)
-		"hide": item.set_item_visible(false)
-		"consume": item.consume()
+		"reveal":
+			item.set_item_visible(true)
+
+		"hide":
+			item.set_item_visible(false)
+
+		"consume":
+			item.consume()
 
 
 # PEGAR ITEM
 func _pick_up(player: PlayerController) -> void:
 	is_being_held = true
+
 	holder = player
 	player.held_item = self
+
 	freeze = true
 
+	# MUDA O ITEM PARA O PONTO DE SEGURAR
 	reparent(player.hold_position)
 
-	global_position = player.hold_position.global_position + player.hold_position.global_transform.basis * hold_offset
-	global_rotation = player.hold_position.global_rotation + hold_rotation * PI / 180.0
+	# GARANTE QUE O ITEM SEMPRE USE
+	# O OFFSET LOCAL DEFINIDO NO INSPECTOR
+	position = hold_offset
+
+	rotation = Vector3(
+		deg_to_rad(hold_rotation.x),
+		deg_to_rad(hold_rotation.y),
+		deg_to_rad(hold_rotation.z)
+	)
+
+	# EVITA HERANÇA DE ESCALA
+	scale = Vector3.ONE
 
 	icon.visible = false
 
@@ -154,15 +189,26 @@ func _pick_up(player: PlayerController) -> void:
 
 
 # SOLTAR ITEM
-func put_down(target_position: Vector3, target_rotation: Vector3 = Vector3.ZERO) -> void:
+func put_down(
+	target_position: Vector3,
+	target_rotation: Vector3 = Vector3.ZERO
+) -> void:
+
 	is_being_held = false
 
 	var prev_holder = holder
 	holder = null
 
 	reparent(get_tree().current_scene)
+
 	global_position = target_position
-	global_rotation = original_rotation if target_rotation == Vector3.ZERO else target_rotation
+
+	global_rotation = (
+		original_rotation
+		if target_rotation == Vector3.ZERO
+		else target_rotation
+	)
+
 	freeze = true
 
 	# limpa UI
@@ -179,9 +225,11 @@ func _swap_with_player(player: PlayerController) -> void:
 		return
 
 	var current_item = player.held_item
+
 	current_item.put_down(global_position, global_rotation)
 
 	player.held_item = null
+
 	_pick_up(player)
 
 
@@ -192,6 +240,7 @@ func consume() -> void:
 
 	if holder:
 		holder.held_item = null
+
 		_update_ui_icon(holder)
 		_update_dialogic(holder)
 
@@ -204,10 +253,11 @@ func _find_ui_icon() -> TextureRect:
 
 	for node in nodes:
 		if node is TextureRect:
-			return node
+			return node  # pega o primeiro válido
 
 	return null
-	
+
+
 func _update_ui_icon(player: PlayerController) -> void:
 	if not player:
 		return
@@ -215,9 +265,22 @@ func _update_ui_icon(player: PlayerController) -> void:
 	var ui_icon: TextureRect = _find_ui_icon()
 
 	if ui_icon:
-		ui_icon.texture = player.held_item.item_icon if player.held_item else null
+		if player.held_item:
+			ui_icon.texture = player.held_item.item_icon
+			ui_icon.visible = true
+
+		else:
+			if use_empty_icon and empty_icon_texture:
+				ui_icon.texture = empty_icon_texture
+				ui_icon.visible = true
+
+			else:
+				ui_icon.visible = false
 
 
 # DIALOGIC VAR
 func _update_dialogic(player: PlayerController) -> void:
-	Dialogic.VAR.set("player_item_type", player.held_item.item_type if player.held_item else "none")
+	Dialogic.VAR.set(
+		"player_item_type",
+		player.held_item.item_type if player.held_item else "none"
+	)

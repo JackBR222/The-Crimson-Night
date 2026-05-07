@@ -59,6 +59,7 @@ size = Vector3(0.2897339, 0.4371338, 0.38513184)
 transform = Transform3D(0.06, 0, 0, 0, 0.06, 0, 0, 0, 0.06, 0, 0, 0)
 
 [node name="Gangorra" parent="." index="0" unique_id=143844856]
+visibility_range_end = 75.0
 mesh = SubResource("ArrayMesh_8ogb1")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="." index="1" unique_id=2014581524]

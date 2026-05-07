@@ -187,15 +187,19 @@ data = PackedVector3Array(-0.107099995, 0.0026, 0.70379996, -0.0954, 0.0026, 0.7
 transform = Transform3D(0.06, 0, 0, 0, 0.06, 0, 0, 0, 0.06, 0, 0, 0)
 
 [node name="Cube_001" parent="." index="0" unique_id=2138133451]
+visibility_range_end = 75.0
 mesh = SubResource("ArrayMesh_qywox")
 
 [node name="Cylinder" parent="." index="1" unique_id=259911787]
+visibility_range_end = 75.0
 mesh = SubResource("ArrayMesh_g8wj2")
 
 [node name="Cylinder_001" parent="." index="2" unique_id=1124133769]
+visibility_range_end = 75.0
 mesh = SubResource("ArrayMesh_t2rk2")
 
 [node name="Parede frente" parent="." index="3" unique_id=642862332]
+visibility_range_end = 75.0
 mesh = SubResource("ArrayMesh_u31xv")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="." index="4" unique_id=173426891]

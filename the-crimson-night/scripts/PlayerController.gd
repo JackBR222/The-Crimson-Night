@@ -8,7 +8,7 @@ var input_enabled: bool = true
 # CONFIGURAÇÕES
 @export var turn_speed: float = 120.0
 @export var walk_speed: float = 3.0
-@export var run_speed: float = 5.6
+@export var run_speed: float = 6.6
 const GRAVITY: float = -9.81
 
 # INPUT CACHE
@@ -46,7 +46,6 @@ func get_current_anim() -> String:
 # READY
 func _ready() -> void:
 	_setup_animation_loops()
-
 
 # LOOP PRINCIPAL
 func _physics_process(delta: float) -> void:

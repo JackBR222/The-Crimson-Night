@@ -278,26 +278,32 @@ transform = Transform3D(0.06, 0, 0, 0, 0.06, 0, 0, 0, 0.06, 0, 0, 0)
 
 [node name="TIJOLO" parent="." index="0" unique_id=1248630700]
 transform = Transform3D(5.960465e-06, -7.549792e-06, 116.18246, 0, 100.00001, 8.771534e-06, -100.00001, -3.552714e-13, 6.925014e-06, 0.016828239, -0.33000752, 48.694054)
+visibility_range_end = 75.0
 mesh = SubResource("ArrayMesh_h428w")
 
 [node name="Telhado Centro" parent="." index="1" unique_id=2045211421]
 transform = Transform3D(3.576279e-05, 123.950386, 1.9470715e-05, -100, 4.4328117e-05, 5.6843423e-12, -1.4210856e-12, -2.413403e-05, 100.00001, -1.188776, 83.08662, -1.4216415)
+visibility_range_end = 75.0
 mesh = SubResource("ArrayMesh_qgiv6")
 
 [node name="VIDRO 1" parent="." index="2" unique_id=1870586396]
 transform = Transform3D(100.00001, 0, 0, 0, 100.00001, 7.5497906e-06, 0, -7.5497906e-06, 100.00001, 58.769363, -0.33000678, -0.52979594)
+visibility_range_end = 75.0
 mesh = SubResource("ArrayMesh_pklcr")
 
 [node name="VIDRO 2" parent="." index="3" unique_id=1272398774]
 transform = Transform3D(3.576279e-05, -1.9470715e-05, 76.0252, 7.105428e-13, 100.00001, 1.4802651e-05, -100, -6.394885e-12, 2.7188731e-05, 20.063976, -9.094948e-15, -49.430923)
+visibility_range_end = 75.0
 mesh = SubResource("ArrayMesh_p6qj5")
 
 [node name="VIDRO 3" parent="." index="4" unique_id=354279553]
 transform = Transform3D(5.960465e-06, -7.549792e-06, 80.45633, 0, 100.00001, 6.0742855e-06, -100.00001, -3.552714e-13, 4.795571e-06, -18.581657, -9.094948e-15, -49.430923)
+visibility_range_end = 75.0
 mesh = SubResource("ArrayMesh_6tfdc")
 
 [node name="VIDRO 4" parent="." index="5" unique_id=1901902571]
 transform = Transform3D(-100.00001, 0, 0, 0, 100.00001, 3.8941438e-05, 0, -3.8941438e-05, 100.00001, -60.90126, -0.3300157, -0.53049725)
+visibility_range_end = 75.0
 mesh = SubResource("ArrayMesh_xifag")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="." index="6" unique_id=1956004328]

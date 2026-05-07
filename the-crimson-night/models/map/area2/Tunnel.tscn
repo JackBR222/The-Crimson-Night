@@ -48,6 +48,7 @@ data = PackedVector3Array(-0.006, -0.0061999997, 0.009699999, -0.006, -0.0061999
 [node name="Tunnel" unique_id=735319540 instance=ExtResource("1_ubt38")]
 
 [node name="Tunel" parent="." index="0" unique_id=776627578]
+visibility_range_end = 75.0
 mesh = SubResource("ArrayMesh_dgl05")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Tunel" index="0" unique_id=2063918555]

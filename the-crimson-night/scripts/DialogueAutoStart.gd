@@ -3,6 +3,11 @@ extends Node
 @export var dialog_timeline: Resource
 @export var start_delay: float = 0.0
 
+@export var change_scene_on_end: bool = false
+@export var next_scene: PackedScene
+
+@export var ignore_player: bool = false
+
 var current_player: Node = null
 var has_played := false
 
@@ -12,7 +17,9 @@ func _ready() -> void:
 		push_warning("Nenhum dialog_timeline definido!")
 		return
 
-	await _wait_for_player()
+	if not ignore_player:
+		await _wait_for_player()
+
 	_start_dialog_once()
 
 
@@ -57,3 +64,9 @@ func _on_timeline_ended() -> void:
 		Dialogic.timeline_ended.disconnect(_on_timeline_ended)
 
 	print("Diálogo executado (one-shot).")
+
+	if change_scene_on_end:
+		if next_scene:
+			get_tree().change_scene_to_packed(next_scene)
+		else:
+			push_warning("change_scene_on_end está ativo, mas nenhuma cena foi definida!")

@@ -3,16 +3,6 @@
 [ext_resource type="PackedScene" uid="uid://taxpv8a6i568" path="res://models/map/import/Portao (com animação).fbx" id="1_nsxhx"]
 [ext_resource type="Script" uid="uid://b6l855f0rb2rt" path="res://scripts/GateController.gd" id="2_pod4h"]
 [ext_resource type="Texture2D" uid="uid://dcxq4xkjdcwi6" path="res://models/map/Grade_texture.png" id="2_ttcq8"]
-[ext_resource type="Shader" uid="uid://c2jh875a4nmd6" path="res://scripts/shaders/PS1 Model.gdshader" id="3_t50mf"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_j5qdb"]
-render_priority = 0
-shader = ExtResource("3_t50mf")
-shader_parameter/affine_mapping = false
-shader_parameter/albedo = ExtResource("2_ttcq8")
-shader_parameter/alpha_scissor = 0.5
-shader_parameter/jitter = 0.25
-shader_parameter/resolution = Vector2i(320, 240)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t50mf"]
 resource_name = "Grade"
@@ -20,7 +10,7 @@ vertex_color_use_as_albedo = true
 albedo_texture = ExtResource("2_ttcq8")
 emission_enabled = true
 emission = Color(1, 1, 1, 1)
-emission_energy_multiplier = 0.0
+emission_energy_multiplier = 0.25
 texture_filter = 0
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_j5qdb"]
@@ -51,7 +41,6 @@ transform = Transform3D(0.01, 0, 0, 0, 0.01, 0, 0, 0, 0.01, 0, 0, 0)
 script = ExtResource("2_pod4h")
 
 [node name="Portão" parent="Armature/Skeleton3D" parent_id_path=PackedInt32Array(1355842610) index="0" unique_id=1958005330]
-material_override = SubResource("ShaderMaterial_j5qdb")
 mesh = SubResource("ArrayMesh_j5qdb")
 
 [node name="BoneAttachment3D" type="BoneAttachment3D" parent="Armature/Skeleton3D" parent_id_path=PackedInt32Array(1355842610) index="1" unique_id=1124456108]

@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://od3a3mi528a4"]
+
+[ext_resource type="Script" uid="uid://b2nllr3fbam4d" path="res://scripts/DialogueAutoStart.gd" id="1_45dpb"]
+[ext_resource type="Resource" uid="uid://dyf21orgdmdn0" path="res://dialogue/Intro.dtl" id="2_hc7eg"]
+[ext_resource type="PackedScene" uid="uid://bqdrg83vwji4m" path="res://scenes/Game.scn" id="3_aqbct"]
+
+[node name="Node3D" type="Node3D" unique_id=1568266438]
+script = ExtResource("1_45dpb")
+dialog_timeline = ExtResource("2_hc7eg")
+start_delay = 1.0
+change_scene_on_end = true
+next_scene = ExtResource("3_aqbct")
+ignore_player = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=323877809]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer" unique_id=296161914]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)

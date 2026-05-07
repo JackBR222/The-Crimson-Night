@@ -56,6 +56,7 @@ size = Vector3(0.72576904, 0.82177734, 0.9022217)
 transform = Transform3D(0.06, 0, 0, 0, 0.06, 0, 0, 0, 0.06, 0, 0, 0)
 
 [node name="Fogueira" parent="." index="0" unique_id=699317853]
+visibility_range_end = 75.0
 mesh = SubResource("ArrayMesh_u482x")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="." index="1" unique_id=321318742]

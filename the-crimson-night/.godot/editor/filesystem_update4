@@ -1,13 +1,9 @@
-res://scenes/MainMenu.tscn
-res://scripts/shaders/PS1 Model.gdshader
+res://prefabs/Enemy.tscn
 res://sprites/ShinyAnim.tres
-res://scripts/MainMenu.gd
-res://scripts/PauseMenu.gd
-res://prefabs/CanvasLayer.tscn
-res://scripts/FadeController.gd
+res://scripts/EnemyAI.gd
 res://scenes/Game.scn
-res://models/map/area4/Banheiro4.tscn
-res://models/map/area4/CasaBombas.tscn
-res://scripts/DialogueAutoStart.gd
-res://models/map/area4/Armazem4.tscn
-res://models/map/area2/Gangorra.tscn
+res://scenes/MainMenu.tscn
+res://scripts/MainMenu.gd
+res://scripts/Item.gd
+res://prefabs/Player.scn
+res://scripts/PlayerController.gd

@@ -4,6 +4,7 @@
 [ext_resource type="AudioStream" uid="uid://bmogg03p5k0pq" path="res://audio/Tension.mp3" id="1_yovvs"]
 [ext_resource type="Texture2D" uid="uid://bm06brnjm1fwl" path="res://sprites/menu/MenuStart.png" id="2_2wh52"]
 [ext_resource type="Texture2D" uid="uid://ci4y3et5iutyi" path="res://sprites/menu/MenuMain.png" id="3_826wr"]
+[ext_resource type="PackedScene" uid="uid://od3a3mi528a4" path="res://scenes/Intro.tscn" id="3_wrgne"]
 [ext_resource type="Texture2D" uid="uid://b2cg3ox6dlfgr" path="res://sprites/menu/ButtonStart.png" id="4_7la6k"]
 [ext_resource type="Texture2D" uid="uid://c2opl2ahyymtr" path="res://sprites/menu/MenuConfig.png" id="4_ucygd"]
 [ext_resource type="Texture2D" uid="uid://erxq5lmkjkx" path="res://sprites/menu/ButtonQuit.png" id="5_mipys"]
@@ -11,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://dxgfq5hkgetqp" path="res://sprites/menu/ButtonPressStart.png" id="6_tdapf"]
 [ext_resource type="AudioStream" uid="uid://dikurla0uwtx4" path="res://audio/sounds/ui_press.mp3" id="6_yovvs"]
 [ext_resource type="AudioStream" uid="uid://buba2evu38lih" path="res://audio/sounds/ui_hover.mp3" id="7_2axsc"]
+[ext_resource type="Texture2D" uid="uid://hvkynge87s4j" path="res://sprites/menu/MenuCredits.png" id="7_hm0al"]
 [ext_resource type="Texture2D" uid="uid://cuwufyeu26353" path="res://sprites/menu/ButtonSelectStart.png" id="7_tdapf"]
 [ext_resource type="AudioStream" uid="uid://wbujovhf485b" path="res://audio/sounds/footstep_concrete.mp3" id="8_2axsc"]
 [ext_resource type="Texture2D" uid="uid://lu8tiamd5i70" path="res://sprites/menu/ButtonPressContinue.png" id="9_7shrw"]
@@ -23,7 +25,10 @@
 [ext_resource type="Texture2D" uid="uid://1cmtmik2tsh6" path="res://sprites/menu/ButtonMenu.png" id="17_viowm"]
 [ext_resource type="Texture2D" uid="uid://df0qfwm3dmsq" path="res://sprites/menu/ButtonPressMenu.png" id="18_1n6yq"]
 [ext_resource type="Texture2D" uid="uid://bqf6j5315qy84" path="res://sprites/menu/ButtonSelectMenu.png" id="19_yovvs"]
+[ext_resource type="Texture2D" uid="uid://iuweebprdimv" path="res://sprites/menu/ButtonCredits.png" id="21_duata"]
 [ext_resource type="Texture2D" uid="uid://cayfmxuyq6b22" path="res://sprites/menu/botõesOF.png" id="21_viowm"]
+[ext_resource type="Texture2D" uid="uid://c1x7eaokbglc8" path="res://sprites/menu/ButtonPressCredits.png" id="22_lw0hr"]
+[ext_resource type="Texture2D" uid="uid://ccqqe063rxqvg" path="res://sprites/menu/ButtonSelectCredits.png" id="23_gnvml"]
 
 [node name="Node3D" type="Node3D" unique_id=1642647240]
 
@@ -34,24 +39,29 @@ autoplay = true
 bus = &"Music"
 parameters/looping = true
 
-[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=875875823 node_paths=PackedStringArray("press_start_panel", "main_panel", "options_panel", "menu_background", "fade_overlay", "options_back_button", "any_press_start", "start_button", "continue_button", "options_button", "quit_button", "music_slider", "sfx_slider")]
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=875875823 node_paths=PackedStringArray("press_start_panel", "main_panel", "options_panel", "credits_panel", "menu_background", "fade_overlay", "options_back_button", "credits_back_button", "any_press_start", "start_button", "continue_button", "options_button", "credits_button", "quit_button", "music_slider", "sfx_slider")]
 script = ExtResource("1_826wr")
+start_scene = ExtResource("3_wrgne")
 press_start_panel = NodePath("PressStartPanel")
 main_panel = NodePath("MainMenuPanel")
 options_panel = NodePath("OptionsPanel")
+credits_panel = NodePath("CreditsPanel")
 menu_background = NodePath("MenuBackground")
 fade_overlay = NodePath("FadeOverlay")
 options_back_button = NodePath("OptionsPanel/BottomLeft/OptionsBackButton")
+credits_back_button = NodePath("CreditsPanel/BottomLeft/CreditsBackButton")
 any_press_start = NodePath("PressStartPanel/AnyPressStart")
 start_button = NodePath("MainMenuPanel/ScrollContainer/VBoxContainer/StartButton")
 continue_button = NodePath("MainMenuPanel/ScrollContainer/VBoxContainer/ContinueButton")
 options_button = NodePath("MainMenuPanel/ScrollContainer/VBoxContainer/OptionsButton")
+credits_button = NodePath("MainMenuPanel/ScrollContainer/VBoxContainer/CreditsButton")
 quit_button = NodePath("MainMenuPanel/ScrollContainer/VBoxContainer/QuitButton")
 music_slider = NodePath("OptionsPanel/Center/MusicSlider")
 sfx_slider = NodePath("OptionsPanel/Center/SFXSlider")
 bg_press_start = ExtResource("2_2wh52")
 bg_main_menu = ExtResource("3_826wr")
 bg_options_menu = ExtResource("4_ucygd")
+bg_credits_menu = ExtResource("7_hm0al")
 ui_click_sound = ExtResource("6_yovvs")
 ui_hover_sound = ExtResource("7_2axsc")
 
@@ -148,6 +158,13 @@ texture_normal = ExtResource("11_1n6yq")
 texture_pressed = ExtResource("12_yovvs")
 texture_focused = ExtResource("13_2axsc")
 
+[node name="CreditsButton" type="TextureButton" parent="CanvasLayer/MainMenuPanel/ScrollContainer/VBoxContainer" unique_id=8064500]
+layout_mode = 2
+mouse_filter = 2
+texture_normal = ExtResource("21_duata")
+texture_pressed = ExtResource("22_lw0hr")
+texture_focused = ExtResource("23_gnvml")
+
 [node name="QuitButton" type="TextureButton" parent="CanvasLayer/MainMenuPanel/ScrollContainer/VBoxContainer" unique_id=31428697]
 layout_mode = 2
 mouse_filter = 2
@@ -177,9 +194,9 @@ layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
-offset_top = -82.5
+offset_top = -72.0
 offset_right = 767.0
-offset_bottom = 82.5
+offset_bottom = 93.0
 grow_vertical = 2
 scale = Vector2(0.5, 0.5)
 mouse_filter = 2
@@ -255,8 +272,42 @@ offset_bottom = 107.0
 text = "SFX"
 horizontal_alignment = 1
 
+[node name="CreditsPanel" type="Control" parent="CanvasLayer" unique_id=1552673863]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BottomLeft" type="Control" parent="CanvasLayer/CreditsPanel" unique_id=31305752]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -40.0
+offset_right = 40.0
+grow_vertical = 0
+
+[node name="CreditsBackButton" type="TextureButton" parent="CanvasLayer/CreditsPanel/BottomLeft" unique_id=1471816239]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -72.0
+offset_right = 767.0
+offset_bottom = 93.0
+grow_vertical = 2
+scale = Vector2(0.5, 0.5)
+mouse_filter = 2
+texture_normal = ExtResource("17_viowm")
+texture_pressed = ExtResource("18_1n6yq")
+texture_focused = ExtResource("19_yovvs")
+
 [connection signal="button_down" from="CanvasLayer/MainMenuPanel/ScrollContainer/VBoxContainer/StartButton" to="CanvasLayer" method="_on_start_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/MainMenuPanel/ScrollContainer/VBoxContainer/ContinueButton" to="CanvasLayer" method="_on_continue_button_pressed"]
-[connection signal="button_down" from="CanvasLayer/MainMenuPanel/ScrollContainer/VBoxContainer/OptionsButton" to="CanvasLayer" method="open_options"]
+[connection signal="button_down" from="CanvasLayer/MainMenuPanel/ScrollContainer/VBoxContainer/OptionsButton" to="CanvasLayer" method="_on_options_button_pressed"]
+[connection signal="button_down" from="CanvasLayer/MainMenuPanel/ScrollContainer/VBoxContainer/CreditsButton" to="CanvasLayer" method="_on_credits_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/MainMenuPanel/ScrollContainer/VBoxContainer/QuitButton" to="CanvasLayer" method="_on_quit_button_pressed"]
-[connection signal="button_down" from="CanvasLayer/OptionsPanel/BottomLeft/OptionsBackButton" to="CanvasLayer" method="close_options"]
+[connection signal="button_down" from="CanvasLayer/OptionsPanel/BottomLeft/OptionsBackButton" to="CanvasLayer" method="_on_options_back_button_pressed"]
+[connection signal="button_down" from="CanvasLayer/CreditsPanel/BottomLeft/CreditsBackButton" to="CanvasLayer" method="_on_credits_back_button_pressed"]

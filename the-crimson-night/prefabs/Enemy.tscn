@@ -187,17 +187,17 @@ _data = {
 }
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_mo45p"]
-radius = 10.0
+radius = 12.0
 
 [node name="Enemy" type="CharacterBody3D" unique_id=1963610167]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 0)
 script = ExtResource("1_pqsom")
 speed_walk = 5.0
-speed_run = 6.61
-run_anim_speed = 1.2
+speed_run = 6.7
 attack_range = 2.5
 patrol_wait_time = 0.0
 investigate_reach_distance = 4.0
+fade_time = 0.1
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1892115294]
 
@@ -282,7 +282,7 @@ shape = SubResource("CapsuleShape3D_pqsom")
 
 [node name="VisionRay" type="RayCast3D" parent="." unique_id=1742632884]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-target_position = Vector3(0, 0, -18)
+target_position = Vector3(0, 0, -60)
 
 [node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=1876285247]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
@@ -304,7 +304,7 @@ shape = SubResource("SphereShape3D_mo45p")
 
 [node name="FootstepEnemy" type="AudioStreamPlayer3D" parent="." unique_id=17563526 node_paths=PackedStringArray("enemy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.004026532, 0)
-volume_db = 15.0
+volume_db = 20.0
 unit_size = 8.5
 max_distance = 75.0
 bus = &"SFX"

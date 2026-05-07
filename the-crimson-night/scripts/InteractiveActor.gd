@@ -109,16 +109,20 @@ func _on_dialogic_signal(argument: String) -> void:
 				lock_interaction()
 
 		"change_timeline_main":
-			change_timeline(dialog_timeline)
+			if Dialogic.VAR.get("current_door_id") == actor_id:
+				change_timeline(dialog_timeline)
 
 		"change_timeline_alt":
-			change_timeline(dialog_timeline_alt)
+			if Dialogic.VAR.get("current_door_id") == actor_id:
+				change_timeline(dialog_timeline_alt)
 
 		"change_model_main":
-			change_model(false)
+			if Dialogic.VAR.get("current_door_id") == actor_id:
+				change_model(false)
 
 		"change_model_alt":
-			change_model(true)
+			if Dialogic.VAR.get("current_door_id") == actor_id:
+				change_model(true)
 
 		"checkpoint_test":
 			Checkpoint.definir_checkpoint(-1)

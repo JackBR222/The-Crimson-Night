@@ -105,6 +105,7 @@ transform = Transform3D(0.06, 0, 0, 0, 0.06, 0, 0, 0, 0.06, 0, 0, 0)
 
 [node name="Parede lado_001" parent="." index="0" unique_id=2020750388]
 transform = Transform3D(195.9064, 0, 0, 0, 100.00001, 2.0234816e-06, 0, -7.5497906e-06, 26.801826, -50.195107, 3.637979e-14, 47.89024)
+visibility_range_end = 75.0
 mesh = SubResource("ArrayMesh_jhs08")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="." index="1" unique_id=1933707303]

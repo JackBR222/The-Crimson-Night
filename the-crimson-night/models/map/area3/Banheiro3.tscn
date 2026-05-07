@@ -310,24 +310,31 @@ data = PackedVector3Array(0.041899998, -0.0050999997, 0.5546, 0.041899998, -0.52
 transform = Transform3D(0.06, 0, 0, 0, 0.06, 0, 0, 0, 0.06, 0, 0, 0)
 
 [node name="Circle" parent="." index="0" unique_id=806888913]
+visibility_range_end = 75.0
 mesh = SubResource("ArrayMesh_0nqf0")
 
 [node name="Parede frente" parent="." index="1" unique_id=2143654715]
+visibility_range_end = 75.0
 mesh = SubResource("ArrayMesh_g1c2p")
 
 [node name="Parede frente_002" parent="." index="2" unique_id=927451090]
+visibility_range_end = 75.0
 mesh = SubResource("ArrayMesh_mr1xu")
 
 [node name="Parede frente_004" parent="." index="3" unique_id=1230203446]
+visibility_range_end = 75.0
 mesh = SubResource("ArrayMesh_4mv3n")
 
 [node name="Parede frente_005" parent="." index="4" unique_id=1197159726]
+visibility_range_end = 75.0
 mesh = SubResource("ArrayMesh_7c85j")
 
 [node name="Parede frente_006" parent="." index="5" unique_id=1378186051]
+visibility_range_end = 75.0
 mesh = SubResource("ArrayMesh_aiyjs")
 
 [node name="Telhado Centro" parent="." index="6" unique_id=1971619857]
+visibility_range_end = 75.0
 mesh = SubResource("ArrayMesh_dxpyx")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="." index="7" unique_id=2033484016]

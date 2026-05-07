@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cy7hxcm0w111b"]
 
-[ext_resource type="Script" uid="uid://des72qjknog7u" path="res://prefabs/DialogueTrigger.gd" id="1_hwslh"]
+[ext_resource type="Script" uid="uid://des72qjknog7u" path="res://scripts/DialogueTrigger.gd" id="1_hwslh"]
 [ext_resource type="Texture2D" uid="uid://ctkdpouqpiah2" path="res://models/Paper_texture.png" id="4_fg2i6"]
 [ext_resource type="PackedScene" uid="uid://b5hrby2w1bk4p" path="res://prefabs/InteractionIcon.tscn" id="4_ulita"]
 [ext_resource type="PackedScene" uid="uid://cfgvhilqj4lj6" path="res://prefabs/GlowPulse.tscn" id="5_6g4b4"]
@@ -12,6 +12,8 @@ radius = 1.0
 cull_mode = 2
 albedo_texture = ExtResource("4_fg2i6")
 roughness = 0.8
+emission_enabled = true
+emission_texture = ExtResource("4_fg2i6")
 texture_filter = 0
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_7eqxe"]

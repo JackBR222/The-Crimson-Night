@@ -56,6 +56,7 @@ size = Vector3(0.90668947, 0.5692749, 0.26381838)
 
 [node name="Playground" parent="." index="0" unique_id=1803785662]
 transform = Transform3D(-1.4954805e-06, -5.4835925e-07, 300, -12.545, 9.471212e-07, -3.5762787e-05, -9.4712107e-07, -12.545, -1.3113417e-05, 0, 0, 1)
+visibility_range_end = 75.0
 mesh = SubResource("ArrayMesh_pqnc3")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="." index="1" unique_id=136284438]
