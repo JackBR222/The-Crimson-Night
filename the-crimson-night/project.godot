@@ -26,18 +26,24 @@ Checkpoint="*uid://bvy0flli3ayi8"
 
 [dialogic]
 
-directories/dch_directory={}
+directories/dch_directory={
+"Figner": "res://dialogue/characters/Figner.dch",
+"Jorge": "res://dialogue/characters/Jorge.dch",
+"Unknown": "res://dialogue/characters/Unknown.dch"
+}
 directories/dtl_directory={
 "ArmazemDoor": "res://dialogue/ArmazemDoor.dtl",
+"Ending": "res://dialogue/characters/Ending.dtl",
+"ExitGate": "res://dialogue/ExitGate.dtl",
 "FuseBox": "res://dialogue/FuseBox.dtl",
 "FuseBox1": "res://dialogue/FuseBox1.dtl",
 "GBoxClosed": "res://dialogue/GBoxClosed.dtl",
 "GBoxOpened": "res://dialogue/GBoxOpened.dtl",
 "GuaritaDoor": "res://dialogue/GuaritaDoor.dtl",
 "Intro": "res://dialogue/Intro.dtl",
+"Jorge": "res://dialogue/Jorge.dtl",
 "Paper1": "res://dialogue/files/Paper1.dtl",
 "Paper2": "res://dialogue/files/Paper2.dtl",
-"Portão": "res://dialogue/Portão.dtl",
 "ReunionDoor": "res://dialogue/ReunionDoor.dtl",
 "paper3": "res://dialogue/files/paper3.dtl",
 "test": "res://dialogue/test/test.dtl",
@@ -88,6 +94,7 @@ audio/channel_defaults={
 }
 layout/style_list=[]
 layout/default_style="Default"
+glossary/glossary_files=[]
 
 [display]
 

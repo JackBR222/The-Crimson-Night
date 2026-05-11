@@ -129,7 +129,7 @@ func _on_dialogic_signal(argument: String) -> void:
 
 		"end_game":
 			await get_tree().create_timer(3.0).timeout
-			get_tree().change_scene_to_file("res://scenes/MainMenu.tscn")
+			get_tree().change_scene_to_file("res://scenes/Ending.tscn")
 
 		_:
 			if argument.begins_with("checkpoint_"):

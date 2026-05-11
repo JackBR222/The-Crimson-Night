@@ -105,7 +105,7 @@ func _on_timeline_ended() -> void:
 	is_targeted = true
 	_update_icon()
 	
-	get_tree().change_scene_to_file("res://scenes/MainMenu.tscn")
+	get_tree().change_scene_to_file("res://scenes/Ending.tscn")
 
 
 

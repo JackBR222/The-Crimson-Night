@@ -103,19 +103,17 @@ data = PackedVector3Array(-0.0072999997, 0.7905, 0.49949998, -0.0072999997, 0.00
 [node name="SalaReuniao" unique_id=568245471 instance=ExtResource("1_mkkml")]
 transform = Transform3D(0.06, 0, 0, 0, 0.06, 0, 0, 0, 0.06, 0, 0, 0)
 
-[node name="Parede lado_001" parent="." index="0" unique_id=2020750388]
+[node name="Parede lado_001" parent="." index="0" unique_id=992899017]
 transform = Transform3D(195.9064, 0, 0, 0, 100.00001, 2.0234816e-06, 0, -7.5497906e-06, 26.801826, -50.195107, 3.637979e-14, 47.89024)
 visibility_range_end = 75.0
 mesh = SubResource("ArrayMesh_jhs08")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="." index="1" unique_id=1933707303]
-transform = Transform3D(150, 0, 0, 0, 150, 0, 0, 0, 150, 0, 0, 0)
+[node name="StaticBody3D" type="StaticBody3D" parent="Parede lado_001" index="0" unique_id=589979628]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0" unique_id=1007943023]
-transform = Transform3D(1.3060427, 0, 0, 0, 0.66666675, 1.3489877e-08, 0, -5.0331938e-08, 0.17867884, -0.33463404, 2.4253192e-16, 0.31926826)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Parede lado_001/StaticBody3D" index="0" unique_id=79832755]
 shape = SubResource("ConcavePolygonShape3D_mkkml")
 
-[node name="NavigationObstacle3D" type="NavigationObstacle3D" parent="." index="2" unique_id=2027322811]
+[node name="NavigationObstacle3D" type="NavigationObstacle3D" parent="." index="1" unique_id=2027322811]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 78.33334, 0)
 height = 25.0
 vertices = PackedVector3Array(-52.43682, 0, 64.416306, 54.407867, 0, 65.0448, 53.779366, 0, -74.48178, -51.179813, 0, -74.48178)

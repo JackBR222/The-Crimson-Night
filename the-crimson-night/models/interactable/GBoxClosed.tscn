@@ -88,8 +88,8 @@ shadow_mesh = SubResource("ArrayMesh_a1wi1")
 
 [node name="GBoxClosed" unique_id=70106819 instance=ExtResource("1_vxqw5")]
 
-[node name="Caixa da F_" parent="." index="0" unique_id=20204852]
+[node name="Caixa da F_" parent="." index="0" unique_id=1020891]
 mesh = SubResource("ArrayMesh_i8s3h")
 
-[node name="Porta" parent="." index="1" unique_id=940033095]
+[node name="Porta" parent="." index="1" unique_id=64361295]
 mesh = SubResource("ArrayMesh_f08op")

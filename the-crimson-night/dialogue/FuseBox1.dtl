@@ -1,7 +1,10 @@
 if {player_item_type} == "Fuse":
-	abriu o portão
+	Figner: Consegui!
 	[signal arg="consume:Fuse"]
 	[signal arg="change_model_main"]
 	[signal arg="open_gate"]
+	audio "res://audio/sounds/Portão.mp3"
+	[wait time="1.5"]
+	Figner: Agora eu posso escapar, o portão já está aberto!!!
 else:
-	Uma caixa de fusíveis... Falta um fusível...
+	Figner: Preciso achar um [color = yellow]fusível[/color] para colocar aqui

@@ -87,10 +87,11 @@ blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_mjsb4")
 
 [node name="GBoxOpened" unique_id=1432979482 instance=ExtResource("1_eb6g3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0057468414, 0, 0)
 
-[node name="Caixa da F_" parent="." index="0" unique_id=1799102090]
+[node name="Caixa da F_" parent="." index="0" unique_id=767120301]
 transform = Transform3D(100, 0, 0, 0, -7.05719e-05, 213, 0, -295.99997, -5.078316e-05, -0.0035128593, 3.140858, -0.0064291954)
 mesh = SubResource("ArrayMesh_xcoll")
 
-[node name="Porta" parent="." index="1" unique_id=666954816]
+[node name="Porta" parent="." index="1" unique_id=704459737]
 mesh = SubResource("ArrayMesh_6umi0")

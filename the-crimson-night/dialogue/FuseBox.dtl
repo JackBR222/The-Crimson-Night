@@ -1,8 +1,9 @@
 if {player_item_type} == "Key":
-	Abriu!
+	Figner: Abriu!
+	Figner: Preciso achar um [color = yellow]fusível[/color] para colocar aqui.
 	[signal arg="consume:Key"]
 	[signal arg="change_timeline_alt"]
 	[signal arg="change_model_alt"]
 else:
-	Uma caixa de fusíveis...
-	Ela está trancada.
+	Figner: Uma caixa de fusíveis... Está trancada
+	Figner: Preciso da minha [color=yellow]chave[/color].

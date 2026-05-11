@@ -22,13 +22,13 @@
 [ext_resource type="Texture2D" uid="uid://ct45axw46jdgh" path="res://sprites/menu/ButtonSelectConfig.png" id="13_2axsc"]
 [ext_resource type="Texture2D" uid="uid://5lfxbohd33" path="res://sprites/menu/ButtonPressQuit.png" id="15_wrgne"]
 [ext_resource type="Texture2D" uid="uid://v5yj1kgxd30q" path="res://sprites/menu/ButtonSelectQuit.png" id="16_hm0al"]
-[ext_resource type="Texture2D" uid="uid://1cmtmik2tsh6" path="res://sprites/menu/ButtonMenu.png" id="17_viowm"]
-[ext_resource type="Texture2D" uid="uid://df0qfwm3dmsq" path="res://sprites/menu/ButtonPressMenu.png" id="18_1n6yq"]
-[ext_resource type="Texture2D" uid="uid://bqf6j5315qy84" path="res://sprites/menu/ButtonSelectMenu.png" id="19_yovvs"]
 [ext_resource type="Texture2D" uid="uid://iuweebprdimv" path="res://sprites/menu/ButtonCredits.png" id="21_duata"]
 [ext_resource type="Texture2D" uid="uid://cayfmxuyq6b22" path="res://sprites/menu/botõesOF.png" id="21_viowm"]
 [ext_resource type="Texture2D" uid="uid://c1x7eaokbglc8" path="res://sprites/menu/ButtonPressCredits.png" id="22_lw0hr"]
 [ext_resource type="Texture2D" uid="uid://ccqqe063rxqvg" path="res://sprites/menu/ButtonSelectCredits.png" id="23_gnvml"]
+[ext_resource type="Texture2D" uid="uid://du0gg4ou260uq" path="res://sprites/menu/Voltar.png" id="30_d3xvo"]
+[ext_resource type="Texture2D" uid="uid://bug7xs8g4sw5g" path="res://sprites/menu/Voltar pressionado.png" id="31_ynb5t"]
+[ext_resource type="Texture2D" uid="uid://dm08su8r7uuds" path="res://sprites/menu/Voltar [].png" id="32_ejntt"]
 
 [node name="Node3D" type="Node3D" unique_id=1642647240]
 
@@ -200,9 +200,9 @@ offset_bottom = 93.0
 grow_vertical = 2
 scale = Vector2(0.5, 0.5)
 mouse_filter = 2
-texture_normal = ExtResource("17_viowm")
-texture_pressed = ExtResource("18_1n6yq")
-texture_focused = ExtResource("19_yovvs")
+texture_normal = ExtResource("30_d3xvo")
+texture_pressed = ExtResource("31_ynb5t")
+texture_focused = ExtResource("32_ejntt")
 
 [node name="Center" type="Control" parent="CanvasLayer/OptionsPanel" unique_id=1107349539]
 layout_mode = 1
@@ -300,9 +300,9 @@ offset_bottom = 93.0
 grow_vertical = 2
 scale = Vector2(0.5, 0.5)
 mouse_filter = 2
-texture_normal = ExtResource("17_viowm")
-texture_pressed = ExtResource("18_1n6yq")
-texture_focused = ExtResource("19_yovvs")
+texture_normal = ExtResource("30_d3xvo")
+texture_pressed = ExtResource("31_ynb5t")
+texture_focused = ExtResource("32_ejntt")
 
 [connection signal="button_down" from="CanvasLayer/MainMenuPanel/ScrollContainer/VBoxContainer/StartButton" to="CanvasLayer" method="_on_start_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/MainMenuPanel/ScrollContainer/VBoxContainer/ContinueButton" to="CanvasLayer" method="_on_continue_button_pressed"]

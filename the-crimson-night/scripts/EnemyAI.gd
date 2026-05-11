@@ -111,9 +111,12 @@ func _ready() -> void:
 
 	_play_from_start(bgm_player)
 	bgm_player.volume_db = 0
-	
+
 	await get_tree().create_timer(5.0).timeout
 	can_trigger_chase_music = true
+
+	Dialogic.signal_event.connect(_on_dialogic_signal)
+
 
 
 # LOOP PRINCIPAL DE FÍSICA
@@ -197,16 +200,18 @@ func _state_chase() -> void:
 		_enter_state(State.INVESTIGATE)
 		return
 
-	last_known_player_position = target.global_position
+	if _can_see_player():
+		last_known_player_position = target.global_position
+		agent.set_target_position(last_known_player_position)
+	else:
+		investigate_position = last_known_player_position
+		_enter_state(State.INVESTIGATE)
+		return
 
 	_move(speed_run)
 
 	if _flat_distance(global_position, target.global_position) < attack_range:
 		_enter_state(State.ATTACK)
-
-	elif not _can_see_player():
-		investigate_position = target.global_position
-		_enter_state(State.INVESTIGATE)
 
 
 # ESTADO: ATAQUE
@@ -249,7 +254,16 @@ func _state_return() -> void:
 # MOVIMENTO GERAL
 func _move(speed: float) -> void:
 	if agent.is_navigation_finished():
-		_update_agent_target()
+		match state:
+			State.CHASE:
+				if last_known_player_position != Vector3.ZERO:
+					agent.set_target_position(last_known_player_position)
+
+			State.INVESTIGATE:
+				agent.set_target_position(investigate_position)
+
+			_:
+				_update_agent_target()
 
 	var next_pos = agent.get_next_path_position()
 	_walk_to(next_pos, speed)
@@ -268,6 +282,8 @@ func _walk_to(next_pos: Vector3, speed: float) -> void:
 	dir.y = 0
 
 	if dir.length() == 0:
+		velocity.x = lerp(velocity.x, 0.0, 0.2)
+		velocity.z = lerp(velocity.z, 0.0, 0.2)
 		return
 
 	dir = dir.normalized()
@@ -292,6 +308,7 @@ func _enter_state(new_state: State) -> void:
 		State.PATROL:
 			patrol_timer = patrol_wait_time
 			_update_agent_target()
+			_switch_to_normal_music()
 
 		State.INVESTIGATE:
 			investigate_timer = investigate_wait_time
@@ -300,6 +317,11 @@ func _enter_state(new_state: State) -> void:
 
 		State.CHASE:
 			return_position = global_position
+
+			if target:
+				last_known_player_position = target.global_position
+				agent.set_target_position(last_known_player_position)
+
 			_switch_to_chase_music()
 
 		State.ATTACK:
@@ -308,33 +330,51 @@ func _enter_state(new_state: State) -> void:
 		State.RETURN:
 			if current_patrol_group.size() > 0:
 				agent.set_target_position(current_patrol_group[patrol_index].global_position)
-				_switch_to_normal_music()
+
+			_switch_to_normal_music()
 
 	_update_agent_target()
 
 
 # NAVEGAÇÃO
 func _update_agent_target() -> void:
-	if current_patrol_group.is_empty():
+	if current_patrol_group.is_empty() and state != State.CHASE and state != State.INVESTIGATE:
 		return
 
 	match state:
 		State.PATROL:
-			agent.set_target_position(current_patrol_group[patrol_index].global_position)
+			if current_patrol_group.size() > 0:
+				agent.set_target_position(current_patrol_group[patrol_index].global_position)
 
 		State.CHASE:
-			if target and not player_is_hidden:
-				agent.set_target_position(target.global_position)
+			if not player_is_hidden:
+				agent.set_target_position(last_known_player_position)
+
+		State.INVESTIGATE:
+			agent.set_target_position(investigate_position)
 
 		State.RETURN:
-			agent.set_target_position(current_patrol_group[patrol_index].global_position)
+			if current_patrol_group.size() > 0:
+				agent.set_target_position(current_patrol_group[patrol_index].global_position)
 
 
 # ATUALIZAÇÃO DE CAMINHO
 func _update_path(delta: float) -> void:
 	update_timer -= delta
+
 	if update_timer <= 0.0:
-		_update_agent_target()
+		match state:
+			State.CHASE:
+				if _can_see_player():
+					last_known_player_position = target.global_position
+					agent.set_target_position(last_known_player_position)
+
+			State.INVESTIGATE:
+				agent.set_target_position(investigate_position)
+
+			_:
+				_update_agent_target()
+
 		update_timer = update_interval
 
 
@@ -386,6 +426,9 @@ func _set_patrol_group(group: Array[Node3D], group_number: int) -> void:
 
 	velocity = Vector3.ZERO
 	update_timer = 0.0
+
+	if state in [State.CHASE, State.INVESTIGATE, State.ATTACK]:
+		return
 
 	if current_patrol_group.size() > 0:
 		agent.set_target_position(current_patrol_group[0].global_position)
@@ -479,3 +522,11 @@ func _switch_to_normal_music() -> void:
 	chase_player.stop()
 
 	music_transitioning = false
+
+# SINAIS DO DIALOGIC
+func _on_dialogic_signal(argument: String) -> void:
+
+	match argument:
+
+		"player_noise":
+			hear_noise(target)

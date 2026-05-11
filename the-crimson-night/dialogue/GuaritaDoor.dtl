@@ -1,6 +1,5 @@
 if {first_interaction} == false:
-	Minha guarita é legal.
+	Figner: Não posso mais voltar para dentro, não há nada que eu possa fazer aí.
 	set {first_interaction} = true
 elif {first_interaction} == true:
-	Não posso mais voltar para dentro, não há nada que eu possa fazer aí.
-	Tenho que me apressar e consertar a energia.
+	Figner: Tenho que me apressar e consertar a energia.

@@ -186,6 +186,8 @@ func _pick_up(player: PlayerController) -> void:
 	# bloqueia glow
 	if glow_sprite:
 		glow_sprite.set_active(false)
+		
+	$CollisionShape3D.disabled = true
 
 
 # SOLTAR ITEM
@@ -217,6 +219,9 @@ func put_down(
 
 	if glow_sprite and item_visible:
 		glow_sprite.set_active(true)
+		
+	$CollisionShape3D.disabled = false
+
 
 
 # TROCA
@@ -229,6 +234,8 @@ func _swap_with_player(player: PlayerController) -> void:
 	current_item.put_down(global_position, global_rotation)
 
 	player.held_item = null
+	
+	$CollisionShape3D.disabled = false
 
 	_pick_up(player)
 
