@@ -1,3 +1,8 @@
+if {read_intro} == true:
+	[i]Pular Intro?[/i]
+	- Sim
+		[end_timeline]
+	- Não
 audio "res://audio/sounds/Walktalk.mp3"
 [wait time="2.0"]
 Unknown: Boa noite, parceiro. Na escuta?
@@ -26,3 +31,4 @@ Figner: Jorge? Jorge?
 [i]~ Sem entender nada Figner sai da guarita tremendo e ofegante que acaba deixando suas chaves caírem de sua mão~[i]
 audio "res://audio/sounds/chave caindo.mp3"
 [wait time="2.0"]
+# Depois da Jaqueira Geek, colocar set variable true para a variável read_intro

@@ -38,6 +38,9 @@ func start_dialog() -> void:
 	if current_player:
 		current_player.freeze_input()
 
+	# congela o inimigo
+	get_tree().call_group("enemies", "set_process_mode", Node.PROCESS_MODE_DISABLED)
+
 	# evita múltiplas conexões
 	if Dialogic.timeline_ended.is_connected(_on_timeline_ended):
 		Dialogic.timeline_ended.disconnect(_on_timeline_ended)
@@ -51,6 +54,9 @@ func start_dialog() -> void:
 func _on_timeline_ended() -> void:
 	if Dialogic.timeline_ended.is_connected(_on_timeline_ended):
 		Dialogic.timeline_ended.disconnect(_on_timeline_ended)
+
+	# descongela o inimigo
+	get_tree().call_group("enemies", "set_process_mode", Node.PROCESS_MODE_INHERIT)
 
 	if current_player:
 		current_player.unfreeze_input()

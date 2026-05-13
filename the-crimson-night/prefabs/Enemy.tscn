@@ -189,7 +189,7 @@ _data = {
 [sub_resource type="SphereShape3D" id="SphereShape3D_mo45p"]
 radius = 12.0
 
-[node name="Enemy" type="CharacterBody3D" unique_id=1963610167]
+[node name="Enemy" type="CharacterBody3D" unique_id=1963610167 groups=["enemies"]]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 0)
 script = ExtResource("1_pqsom")
 speed_walk = 5.0
@@ -300,6 +300,7 @@ libraries/ = SubResource("AnimationLibrary_bvc7t")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="PresenceArea" unique_id=1032293433]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.6226832e-07, 0, -6)
 shape = SubResource("SphereShape3D_mo45p")
 
 [node name="FootstepEnemy" type="AudioStreamPlayer3D" parent="." unique_id=17563526 node_paths=PackedStringArray("enemy")]

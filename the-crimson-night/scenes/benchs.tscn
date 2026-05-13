@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://cjkqplbpqy2s7"]
+
+[ext_resource type="PackedScene" uid="uid://bo4yx6w7dg0ed" path="res://models/map/Bench.tscn" id="1_ihcxb"]
+
+[node name="Benchs" type="Node3D" unique_id=1186127796]
+
+[node name="Bench" parent="." unique_id=861313577 instance=ExtResource("1_ihcxb")]
+transform = Transform3D(0.43301272, 0, 0.25000003, 0, 0.5, 0, -0.25000003, 0, 0.43301272, -57, 0.39999998, 2)
+
+[node name="Bench3" parent="." unique_id=560612382 instance=ExtResource("1_ihcxb")]
+transform = Transform3D(0.5, 0, 1.4901161e-08, 0, 0.5, 0, -1.4901161e-08, 0, 0.5, -22, 0.39999998, 79.5)
+
+[node name="Bench4" parent="." unique_id=1305500455 instance=ExtResource("1_ihcxb")]
+transform = Transform3D(0.5, 0, 1.4901161e-08, 0, 0.5, 0, -1.4901161e-08, 0, 0.5, -26, 0.39999998, 79.5)
+
+[node name="Bench5" parent="." unique_id=277045456 instance=ExtResource("1_ihcxb")]
+transform = Transform3D(0.4829629, 0, 0.12940954, 0, 0.5, 0, -0.12940954, 0, 0.4829629, -52, 0.39999998, 54.5)
+
+[node name="Bench2" parent="." unique_id=344574928 instance=ExtResource("1_ihcxb")]
+transform = Transform3D(0.4829629, 0, 0.12940952, 0, 0.5, 0, -0.12940952, 0, 0.4829629, -53, 0.39999998, 0)

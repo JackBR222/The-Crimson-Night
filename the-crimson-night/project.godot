@@ -13,7 +13,7 @@ config_version=5
 config/name="The Crimson Night"
 run/main_scene="uid://2gskjq56nigd"
 config/features=PackedStringArray("4.6", "Forward Plus")
-config/icon="res://icon.svg"
+config/icon="uid://vnqrqp62xs3v"
 
 [audio]
 
@@ -56,7 +56,8 @@ variables={
 "current_door_id": "",
 "first_interaction": false,
 "multi_key_door": 0,
-"player_item_type": "none"
+"player_item_type": "none",
+"read_intro": false
 }
 glossary/default_case_sensitive=true
 extensions_folder="res://addons/dialogic_additions"
@@ -100,7 +101,7 @@ glossary/glossary_files=[]
 
 window/size/viewport_width=1280
 window/size/viewport_height=720
-window/size/mode=2
+window/size/mode=4
 window/size/resizable=false
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
@@ -115,6 +116,7 @@ concrete="Chão do tipo concreto para sons de passo."
 grass="Grupo para chãos de tipo grama."
 item_ui=""
 player=""
+enemies=""
 
 [input]
 

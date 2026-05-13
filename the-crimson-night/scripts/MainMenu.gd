@@ -12,21 +12,24 @@ extends CanvasLayer
 @export var press_start_panel: Control
 @export var main_panel: Control
 @export var options_panel: Control
+@export var help_panel: Control
 @export var credits_panel: Control
 
 # UI
 @export var menu_background: TextureRect
 @export var fade_overlay: ColorRect
-@export var options_back_button: BaseButton
-@export var credits_back_button: BaseButton
 @export var any_press_start: TextureRect
 
 # BOTÕES
 @export var start_button: BaseButton
 @export var continue_button: BaseButton
 @export var options_button: BaseButton
+@export var help_button: BaseButton
 @export var credits_button: BaseButton
 @export var quit_button: BaseButton
+@export var options_back_button: BaseButton
+@export var help_back_button: BaseButton
+@export var credits_back_button: BaseButton
 
 # ÁUDIO
 @export var music_slider: HSlider
@@ -38,6 +41,7 @@ extends CanvasLayer
 @export var bg_press_start: Texture2D
 @export var bg_main_menu: Texture2D
 @export var bg_options_menu: Texture2D
+@export var bg_help_menu: Texture2D
 @export var bg_credits_menu: Texture2D
 
 # SONS DE UI
@@ -82,6 +86,7 @@ func _ready() -> void:
 	main_panel.visible = false
 	options_panel.visible = false
 	credits_panel.visible = false
+	help_panel.visible = false
 
 	menu_background.texture = bg_press_start
 
@@ -378,6 +383,51 @@ func close_options() -> void:
 	input_locked = false
 
 
+# CONTROLES (HELP)
+func open_options_help() -> void:
+	play_ui_click()
+
+	input_locked = true
+	in_credits = true
+
+	await fade_in(fade_speed_menu)
+
+	options_panel.visible = false
+	help_panel.visible = true
+
+	menu_background.texture = bg_help_menu
+
+	await get_tree().process_frame
+
+	set_focus(help_back_button)
+
+	await fade_out(fade_speed_menu)
+
+	input_locked = false
+
+
+func close_options_help() -> void:
+	play_ui_click()
+
+	input_locked = true
+	in_credits = false
+
+	await fade_in(fade_speed_menu)
+
+	help_panel.visible = false
+	options_panel.visible = true
+
+	menu_background.texture = bg_options_menu
+
+	await get_tree().process_frame
+
+	set_focus(help_button)
+
+	await fade_out(fade_speed_menu)
+
+	input_locked = false
+
+
 # CRÉDITOS
 func open_credits() -> void:
 	play_ui_click()
@@ -452,8 +502,16 @@ func _on_credits_button_pressed() -> void:
 	open_credits()
 
 
+func _on_help_button_pressed() -> void:
+	open_options_help()
+
+
 func _on_options_back_button_pressed() -> void:
 	close_options()
+
+
+func _on_help_back_button_pressed() -> void:
+	close_options_help()
 
 
 func _on_credits_back_button_pressed() -> void:

@@ -2,12 +2,8 @@
 
 [ext_resource type="Script" uid="uid://cgqjw3mnl16qx" path="res://scripts/HideSpot.gd" id="1_2ewra"]
 [ext_resource type="Shader" uid="uid://c2jh875a4nmd6" path="res://scripts/shaders/PS1 Model.gdshader" id="2_83vkp"]
-[ext_resource type="Texture2D" uid="uid://bju4hpnvwb1kn" path="res://sprites/PC.png" id="2_g4dn1"]
 [ext_resource type="Texture2D" uid="uid://c38usvbxcpnws" path="res://models/map/textures/Folhas.png" id="2_l71ns"]
-[ext_resource type="Script" uid="uid://dfu12mop0y4tc" path="res://scripts/IconChangeController.gd" id="3_5wp0j"]
-[ext_resource type="Texture2D" uid="uid://c4slituar5jut" path="res://sprites/Xbox.png" id="4_oolq6"]
-[ext_resource type="Texture2D" uid="uid://dhbggw2pi4xcg" path="res://sprites/PS5.png" id="5_54o6y"]
-[ext_resource type="Texture2D" uid="uid://cqeykpfkkuc1x" path="res://sprites/Nintendo.png" id="6_bsk3l"]
+[ext_resource type="PackedScene" uid="uid://b5hrby2w1bk4p" path="res://prefabs/InteractionIcon.tscn" id="4_1y6c2"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bu2sb"]
 render_priority = 0
@@ -114,14 +110,5 @@ shape = SubResource("CylinderShape3D_m4kft")
 [node name="ExitPosition" type="Node3D" parent="." unique_id=938301271]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3)
 
-[node name="InteractionIcon" type="Sprite3D" parent="." unique_id=1061003183]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 3.3000002, 0)
-billboard = 1
-no_depth_test = true
-texture_filter = 0
-texture = ExtResource("2_g4dn1")
-script = ExtResource("3_5wp0j")
-keyboard_texture = ExtResource("2_g4dn1")
-xbox_texture = ExtResource("4_oolq6")
-playstation_texture = ExtResource("5_54o6y")
-nintendo_texture = ExtResource("6_bsk3l")
+[node name="InteractionIcon" parent="." unique_id=1342255257 instance=ExtResource("4_1y6c2")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 3.4647856, 0)

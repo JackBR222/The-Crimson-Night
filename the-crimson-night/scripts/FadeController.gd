@@ -1,6 +1,8 @@
 extends CanvasItem
 
 @export var default_fade_time: float = 1.0
+@export var start_black: bool = false
+@export var start_black_delay: float = 1.0
 
 signal fade_finished
 
@@ -10,14 +12,22 @@ var _queue: Array = []
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
-	modulate.a = 0.0
 	add_to_group("fade")
 
+	if start_black:
+		modulate.a = 1.0
+		_start_black_fade()
+	else:
+		modulate.a = 0.0
 
-# =========================
+
+# DELAY + FADE INICIAL
+func _start_black_fade() -> void:
+	await get_tree().create_timer(start_black_delay).timeout
+	fade_out(default_fade_time)
+
+
 # API PÚBLICA
-# =========================
-
 func fade_in(time: float = -1.0, priority: bool = false) -> void:
 	_request_fade(1.0, time, priority)
 
@@ -26,10 +36,7 @@ func fade_out(time: float = -1.0, priority: bool = false) -> void:
 	_request_fade(0.0, time, priority)
 
 
-# =========================
 # CORE
-# =========================
-
 func _request_fade(target_alpha: float, time: float, priority: bool) -> void:
 	if time <= 0:
 		time = default_fade_time
@@ -77,10 +84,7 @@ func _start_fade(request: Dictionary) -> void:
 	_process_queue()
 
 
-# =========================
 # UTILIDADES
-# =========================
-
 func is_busy() -> bool:
 	return _busy
 
@@ -88,7 +92,6 @@ func wait_fade() -> void:
 	if _tween:
 		await _tween.finished
 
-# versão SEGURA (sem loop, sem crash)
 func wait_finished() -> void:
 	if _busy:
 		await fade_finished

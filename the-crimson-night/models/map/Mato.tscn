@@ -1,0 +1,53 @@
+[gd_scene format=4 uid="uid://b8qs4wyfhlfpu"]
+
+[ext_resource type="PackedScene" uid="uid://buep42xyli8vy" path="res://models/map/import/Mato.fbx" id="1_jedxa"]
+[ext_resource type="Texture2D" uid="uid://bom7hc0leyd2u" path="res://models/map/textures/Mato.png" id="2_e4p2v"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f0m66"]
+resource_name = "Grama"
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("2_e4p2v")
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+emission_energy_multiplier = 0.0
+texture_filter = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_xlldu"]
+_surfaces = [{
+"aabb": AABB(-0.0038283402, -0.003828336, -0.0038283407, 0.0076566804, 0.0076566814, 0.0076566814),
+"format": 34359742465,
+"index_count": 24,
+"index_data": PackedByteArray("AAABAAIAAgADAAAABAAFAAYABgAHAAQACAAJAAoACgALAAgADAANAA4ADgAPAAwA"),
+"name": "Grama",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 16,
+"vertex_data": PackedByteArray("5OR6O/bkejuPwnWl5OR6u/bkejuPwnWl5OR6u9LkeruPwnWl5OR6O9LkeruPwnWlqf63L/vkejvh5Hq7lv43sM3kervm5Hq7lP63r83kervh5Ho7oP43MPvkejvm5Ho75OR6u/bkejsTeFg35OR6O/bkejszdVg35OR6O9LkersTeFg35OR6u9Lkervzelg3eWkIuPvkejvk5Ho7ZWgIuM3kervk5Ho7wWgIuM3kervk5Hq71GkIuPvkejvk5Hq7")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_lfhem"]
+resource_name = "Plane"
+_surfaces = [{
+"aabb": AABB(-0.0038283402, -0.003828336, -0.0038283407, 0.0076566804, 0.0076566814, 0.0076566814),
+"attribute_data": PackedByteArray("AMDROADg0Thy+X8/AKDROHL5fz9y+X8/AMDROHL5fz9s+X8/AKDROHD5fz9u+X8/AADSOHP5fz8AoNE4AEDSOHL5fz8A4NE4udPROACg0TgtttE4cfl/P3L5fz9y+X8/WOrROACg0Tg0lNE4bfl/P2z5fz9z+X8/b/l/PwBA0jg="),
+"format": 34359742487,
+"index_count": 24,
+"index_data": PackedByteArray("AAABAAIAAgADAAAABAAFAAYABgAHAAQACAAJAAoACgALAAgADAANAA4ADgAPAAwA"),
+"material": SubResource("StandardMaterial3D_f0m66"),
+"name": "Grama",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 16,
+"vertex_data": PackedByteArray("5OR6O/bkejuPwnWl5OR6u/bkejuPwnWl5OR6u9LkeruPwnWl5OR6O9LkeruPwnWlqf63L/vkejvh5Hq7lv43sM3kervm5Hq7lP63r83kervh5Ho7oP43MPvkejvm5Ho75OR6u/bkejsTeFg35OR6O/bkejszdVg35OR6O9LkersTeFg35OR6u9Lkervzelg3eWkIuPvkejvk5Ho7ZWgIuM3kervk5Ho7wWgIuM3kervk5Hq71GkIuPvkejvk5Hq7/////wAA/7//////AAD/v/////8AAP+//////wAA/7/+//9/AAAAgP7//38AAACA/v//fwAAAID+//9/AAAAgP9//38AAP8//3//fwAA/z//f/9/AAD/P/9//38AAP8/AAD/fwAAAAAAAP9/AAAAAAAA/38AAAAAAAD/fwAAAAA=")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_xlldu")
+
+[node name="Mato" unique_id=247451900 instance=ExtResource("1_jedxa")]
+
+[node name="Grama" parent="." index="0" unique_id=1857600471]
+mesh = SubResource("ArrayMesh_lfhem")

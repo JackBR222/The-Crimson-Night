@@ -21,7 +21,7 @@ material = SubResource("StandardMaterial3D_tcch3")
 
 [node name="FilePaper" type="StaticBody3D" unique_id=1958908163]
 transform = Transform3D(-4.371139e-08, -0.9659258, 0.25881907, 0, 0.25881907, 0.9659258, -1, 4.222196e-08, -1.1313341e-08, 0, 0, 0)
-collision_layer = 3
+collision_layer = 2
 script = ExtResource("1_hwslh")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=565203112]
