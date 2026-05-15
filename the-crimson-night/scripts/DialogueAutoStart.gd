@@ -4,7 +4,8 @@ extends Node
 @export var start_delay: float = 0.0
 
 @export var change_scene_on_end: bool = false
-@export var next_scene: PackedScene
+
+@export_file("*.tscn", "*.scn") var next_scene_path: String
 
 @export var ignore_player: bool = false
 
@@ -66,7 +67,7 @@ func _on_timeline_ended() -> void:
 	print("Diálogo executado (one-shot).")
 
 	if change_scene_on_end:
-		if next_scene:
-			get_tree().change_scene_to_packed(next_scene)
+		if next_scene_path != "":
+			get_tree().change_scene_to_file(next_scene_path)
 		else:
 			push_warning("change_scene_on_end está ativo, mas nenhuma cena foi definida!")

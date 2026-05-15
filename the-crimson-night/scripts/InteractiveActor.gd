@@ -6,11 +6,12 @@ class_name InteractiveActor
 @export var dialog_timeline: Resource
 @export var dialog_timeline_alt: Resource
 
-
-# MODELS
+# MODELOS
 @export var model_main: Node3D
 @export var model_alt: Node3D
 
+# CENAS
+@export_file("*.tscn", "*.scn") var next_scene_path: String
 
 # DATA
 @export var actor_id: String = "A"
@@ -22,7 +23,8 @@ class_name InteractiveActor
 var current_timeline: Resource
 var pending_timeline: Resource
 
-var pending_model_alt := false
+
+var pending_scene_path: String = ""
 
 var current_player: PlayerController
 
@@ -99,10 +101,15 @@ func _on_timeline_ended() -> void:
 		current_timeline = pending_timeline
 		pending_timeline = null
 
-	_apply_model(pending_model_alt)
 
 	is_targeted = true
 	_update_icon()
+
+	if pending_scene_path != "":
+		var scene_to_load := pending_scene_path
+		pending_scene_path = ""
+
+		get_tree().change_scene_to_file(scene_to_load)
 
 
 # SINAIS DO DIALOGIC
@@ -124,18 +131,18 @@ func _on_dialogic_signal(argument: String) -> void:
 
 		"change_model_main":
 			if Dialogic.VAR.get("current_door_id") == actor_id:
-				change_model(false)
+				_apply_model(false)
 
 		"change_model_alt":
 			if Dialogic.VAR.get("current_door_id") == actor_id:
-				change_model(true)
+				_apply_model(true)
 
 		"checkpoint_test":
 			Checkpoint.definir_checkpoint(-1)
 
-		"end_game":
-			await get_tree().create_timer(3.0).timeout
-			get_tree().change_scene_to_file("res://scenes/Ending.tscn")
+		"change_scene":
+			if Dialogic.VAR.get("current_door_id") == actor_id:
+				change_scene(next_scene_path)
 
 		_:
 			if argument.begins_with("checkpoint_"):
@@ -146,10 +153,13 @@ func _on_dialogic_signal(argument: String) -> void:
 func change_timeline(new_timeline: Resource) -> void:
 	pending_timeline = new_timeline
 
+# CONTROLE DE CENA
+func change_scene(scene_path: String) -> void:
+	pending_scene_path = scene_path
 
 # CONTROLE DE MODELO
 func change_model(use_alt: bool) -> void:
-	pending_model_alt = use_alt
+	_apply_model(use_alt)
 
 
 func _apply_model(use_alt: bool) -> void:

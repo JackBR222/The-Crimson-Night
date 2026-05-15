@@ -1,0 +1,308 @@
+[gd_scene format=3 uid="uid://diu64xw2jydm2"]
+
+[ext_resource type="PackedScene" uid="uid://b8qs4wyfhlfpu" path="res://models/map/Grass.tscn" id="1_w8ath"]
+
+[node name="Matos" type="Node3D" unique_id=1322738082]
+
+[node name="Mato" parent="." unique_id=247451900 instance=ExtResource("1_w8ath")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -42, 0.39999998, -37)
+
+[node name="Mato2" parent="." unique_id=2029217282 instance=ExtResource("1_w8ath")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -73, 0.39999998, -49)
+
+[node name="Mato3" parent="." unique_id=1317681676 instance=ExtResource("1_w8ath")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -61, 0.39999998, -39)
+
+[node name="Mato4" parent="." unique_id=576651787 instance=ExtResource("1_w8ath")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -78, 0.39999998, -26)
+
+[node name="Mato5" parent="." unique_id=1469638117 instance=ExtResource("1_w8ath")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -55, 0.39999998, -31)
+
+[node name="Mato6" parent="." unique_id=583377488 instance=ExtResource("1_w8ath")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -20, 0.39999998, -39)
+
+[node name="Mato7" parent="." unique_id=1314503867 instance=ExtResource("1_w8ath")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -27, 0.39999998, -53)
+
+[node name="Mato8" parent="." unique_id=1212499260 instance=ExtResource("1_w8ath")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -81, 0.39999998, -41)
+
+[node name="Mato9" parent="." unique_id=596539730 instance=ExtResource("1_w8ath")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -65, 0.39999998, -27)
+
+[node name="Mato10" parent="." unique_id=1914313032 instance=ExtResource("1_w8ath")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -49, 0.39999998, -14)
+
+[node name="Mato11" parent="." unique_id=1056977140 instance=ExtResource("1_w8ath")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -69, 0.39999998, -9)
+
+[node name="Mato16" parent="." unique_id=139194427 instance=ExtResource("1_w8ath")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -77, 0.39999998, 2)
+
+[node name="Mato17" parent="." unique_id=1024454363 instance=ExtResource("1_w8ath")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -80, 0.39999998, 24)
+
+[node name="Mato18" parent="." unique_id=1791233880 instance=ExtResource("1_w8ath")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -70, 0.39999998, 17)
+
+[node name="Mato19" parent="." unique_id=252146905 instance=ExtResource("1_w8ath")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -59, 0.39999998, 17)
+
+[node name="Mato20" parent="." unique_id=121724519 instance=ExtResource("1_w8ath")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -41, 0.39999998, 6)
+
+[node name="Mato21" parent="." unique_id=1110845390 instance=ExtResource("1_w8ath")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -46, 0.39999998, 12)
+
+[node name="Mato22" parent="." unique_id=1093414986 instance=ExtResource("1_w8ath")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -30, 0.39999998, 14)
+
+[node name="Mato23" parent="." unique_id=566141248 instance=ExtResource("1_w8ath")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -12, 0.39999998, 20)
+
+[node name="Mato24" parent="." unique_id=841588023 instance=ExtResource("1_w8ath")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -24, 0.39999998, 9)
+
+[node name="Mato25" parent="." unique_id=1737990253 instance=ExtResource("1_w8ath")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -18, 0.39999998, 28)
+
+[node name="Mato26" parent="." unique_id=483913033 instance=ExtResource("1_w8ath")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -18, 0.39999998, 28)
+
+[node name="Mato27" parent="." unique_id=1911102200 instance=ExtResource("1_w8ath")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -12, 0.39999998, 36)
+
+[node name="Mato28" parent="." unique_id=2135122779 instance=ExtResource("1_w8ath")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -30, 0.39999998, 28)
+
+[node name="Mato29" parent="." unique_id=1565285754 instance=ExtResource("1_w8ath")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -53, 0.39999998, 28)
+
+[node name="Mato30" parent="." unique_id=1008205673 instance=ExtResource("1_w8ath")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -48, 0.39999998, 43)
+
+[node name="Mato31" parent="." unique_id=340232215 instance=ExtResource("1_w8ath")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -43, 0.39999998, 35)
+
+[node name="Mato32" parent="." unique_id=1354368426 instance=ExtResource("1_w8ath")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -54, 0.39999998, 38)
+
+[node name="Mato33" parent="." unique_id=362120202 instance=ExtResource("1_w8ath")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -64, 0.39999998, 44)
+
+[node name="Mato34" parent="." unique_id=642060157 instance=ExtResource("1_w8ath")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -80, 0.39999998, 42)
+
+[node name="Mato35" parent="." unique_id=379689319 instance=ExtResource("1_w8ath")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -70, 0.39999998, 49)
+
+[node name="Mato36" parent="." unique_id=1715307694 instance=ExtResource("1_w8ath")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -75, 0.39999998, 46)
+
+[node name="Mato37" parent="." unique_id=411415657 instance=ExtResource("1_w8ath")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -82, 0.39999998, 51)
+
+[node name="Mato38" parent="." unique_id=445100804 instance=ExtResource("1_w8ath")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -75, 0.39999998, 58)
+
+[node name="Mato39" parent="." unique_id=1085094007 instance=ExtResource("1_w8ath")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -83, 0.39999998, 62)
+
+[node name="Mato40" parent="." unique_id=1546904072 instance=ExtResource("1_w8ath")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -86, 0.39999998, 72)
+
+[node name="Mato41" parent="." unique_id=1201775977 instance=ExtResource("1_w8ath")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -79, 0.39999998, 80)
+
+[node name="Mato42" parent="." unique_id=676712142 instance=ExtResource("1_w8ath")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -83, 0.39999998, 85)
+
+[node name="Mato43" parent="." unique_id=1675253624 instance=ExtResource("1_w8ath")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -68, 0.39999998, 90)
+
+[node name="Mato44" parent="." unique_id=1381712393 instance=ExtResource("1_w8ath")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -76, 0.39999998, 89)
+
+[node name="Mato45" parent="." unique_id=372818717 instance=ExtResource("1_w8ath")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -82, 0.39999998, 95)
+
+[node name="Mato46" parent="." unique_id=20031962 instance=ExtResource("1_w8ath")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -67, 0.39999998, 101)
+
+[node name="Mato47" parent="." unique_id=1812114034 instance=ExtResource("1_w8ath")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -76, 0.39999998, 107)
+
+[node name="Mato48" parent="." unique_id=377962347 instance=ExtResource("1_w8ath")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -82, 0.39999998, 103)
+
+[node name="Mato49" parent="." unique_id=1516975737 instance=ExtResource("1_w8ath")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -86, 0.39999998, 111)
+
+[node name="Mato50" parent="." unique_id=1970124577 instance=ExtResource("1_w8ath")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -64, 0.39999998, 107)
+
+[node name="Mato51" parent="." unique_id=1033770983 instance=ExtResource("1_w8ath")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -51, 0.39999998, 112)
+
+[node name="Mato52" parent="." unique_id=1805824291 instance=ExtResource("1_w8ath")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -49, 0.39999998, 99)
+
+[node name="Mato53" parent="." unique_id=150264868 instance=ExtResource("1_w8ath")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -60, 0.39999998, 88)
+
+[node name="Mato54" parent="." unique_id=213452469 instance=ExtResource("1_w8ath")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -64, 0.39999998, 76)
+
+[node name="Mato55" parent="." unique_id=1843913640 instance=ExtResource("1_w8ath")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -58, 0.39999998, 61)
+
+[node name="Mato56" parent="." unique_id=1542139403 instance=ExtResource("1_w8ath")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -51, 0.39999998, 56)
+
+[node name="Mato57" parent="." unique_id=2144581993 instance=ExtResource("1_w8ath")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -43, 0.39999998, 67)
+
+[node name="Mato58" parent="." unique_id=1382373132 instance=ExtResource("1_w8ath")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -43, 0.39999998, 59)
+
+[node name="Mato59" parent="." unique_id=657454098 instance=ExtResource("1_w8ath")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -30, 0.39999998, 54)
+
+[node name="Mato60" parent="." unique_id=609072529 instance=ExtResource("1_w8ath")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -27, 0.39999998, 45)
+
+[node name="Mato61" parent="." unique_id=1109345422 instance=ExtResource("1_w8ath")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -19, 0.39999998, 41)
+
+[node name="Mato62" parent="." unique_id=69872302 instance=ExtResource("1_w8ath")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -13, 0.39999998, 48)
+
+[node name="Mato63" parent="." unique_id=1058804330 instance=ExtResource("1_w8ath")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -23, 0.39999998, 64)
+
+[node name="Mato64" parent="." unique_id=564256582 instance=ExtResource("1_w8ath")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -15, 0.39999998, 72)
+
+[node name="Mato65" parent="." unique_id=25272316 instance=ExtResource("1_w8ath")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -25, 0.39999998, 76)
+
+[node name="Mato66" parent="." unique_id=142379097 instance=ExtResource("1_w8ath")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -17, 0.39999998, 56)
+
+[node name="Mato67" parent="." unique_id=733852543 instance=ExtResource("1_w8ath")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -14, 0.39999998, 90)
+
+[node name="Mato68" parent="." unique_id=1940886795 instance=ExtResource("1_w8ath")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -10, 0.39999998, 101)
+
+[node name="Mato69" parent="." unique_id=1320416393 instance=ExtResource("1_w8ath")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -18, 0.39999998, 111)
+
+[node name="Mato70" parent="." unique_id=1230922281 instance=ExtResource("1_w8ath")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -30, 0.39999998, 113)
+
+[node name="Mato71" parent="." unique_id=1609969532 instance=ExtResource("1_w8ath")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -35, 0.39999998, 106)
+
+[node name="Mato72" parent="." unique_id=516997683 instance=ExtResource("1_w8ath")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -39, 0.39999998, 102)
+
+[node name="Mato74" parent="." unique_id=89316478 instance=ExtResource("1_w8ath")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -35, 0.39999998, 91)
+
+[node name="Mato75" parent="." unique_id=108839722 instance=ExtResource("1_w8ath")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 53, 0.39999998, 95)
+
+[node name="Mato76" parent="." unique_id=1305697709 instance=ExtResource("1_w8ath")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 60, 0.39999998, 102)
+
+[node name="Mato77" parent="." unique_id=972455625 instance=ExtResource("1_w8ath")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 56, 0.39999998, 107)
+
+[node name="Mato78" parent="." unique_id=1425040018 instance=ExtResource("1_w8ath")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 130, 0.39999998, 96)
+
+[node name="Mato79" parent="." unique_id=988793651 instance=ExtResource("1_w8ath")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 154, 0.39999998, 109)
+
+[node name="Mato80" parent="." unique_id=1542324032 instance=ExtResource("1_w8ath")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 140, 0.39999998, 111)
+
+[node name="Mato81" parent="." unique_id=1985740728 instance=ExtResource("1_w8ath")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 140, 0.39999998, 99)
+
+[node name="Mato82" parent="." unique_id=1265750931 instance=ExtResource("1_w8ath")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 137, 0.39999998, 105)
+
+[node name="Mato83" parent="." unique_id=1646503136 instance=ExtResource("1_w8ath")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 130, 0.39999998, 109)
+
+[node name="Mato84" parent="." unique_id=1815984781 instance=ExtResource("1_w8ath")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 152, 0.39999998, 92)
+
+[node name="Mato85" parent="." unique_id=1586612702 instance=ExtResource("1_w8ath")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 148, 0.39999998, 101)
+
+[node name="Mato86" parent="." unique_id=1888059458 instance=ExtResource("1_w8ath")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 163, 0.39999998, 101)
+
+[node name="Mato87" parent="." unique_id=1155572994 instance=ExtResource("1_w8ath")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 163, 0.39999998, 109)
+
+[node name="Mato88" parent="." unique_id=1456198169 instance=ExtResource("1_w8ath")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 182, 0.39999998, 106)
+
+[node name="Mato89" parent="." unique_id=1482527352 instance=ExtResource("1_w8ath")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 171, 0.39999998, 94)
+
+[node name="Mato90" parent="." unique_id=1972665596 instance=ExtResource("1_w8ath")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 173, 0.39999998, 111)
+
+[node name="Mato91" parent="." unique_id=1786324642 instance=ExtResource("1_w8ath")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 173, 0.39999998, 111)
+
+[node name="Mato92" parent="." unique_id=1644376600 instance=ExtResource("1_w8ath")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 183, 0.39999998, 94)
+
+[node name="Mato93" parent="." unique_id=192174162 instance=ExtResource("1_w8ath")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 194, 0.39999998, 101)
+
+[node name="Mato94" parent="." unique_id=1635658842 instance=ExtResource("1_w8ath")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 202, 0.39999998, 109)
+
+[node name="Mato95" parent="." unique_id=1020054853 instance=ExtResource("1_w8ath")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 218, 0.39999998, 89)
+
+[node name="Mato96" parent="." unique_id=284596639 instance=ExtResource("1_w8ath")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 208, 0.39999998, 97)
+
+[node name="Mato97" parent="." unique_id=1923670346 instance=ExtResource("1_w8ath")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 223, 0.39999998, 104)
+
+[node name="Mato98" parent="." unique_id=1449683945 instance=ExtResource("1_w8ath")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 237, 0.39999998, 113)
+
+[node name="Mato99" parent="." unique_id=930799409 instance=ExtResource("1_w8ath")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 249, 0.39999998, 95)
+
+[node name="Mato100" parent="." unique_id=2053784770 instance=ExtResource("1_w8ath")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 261, 0.39999998, 103)
+
+[node name="Mato101" parent="." unique_id=543326469 instance=ExtResource("1_w8ath")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 233, 0.39999998, 91)
+
+[node name="Mato73" parent="." unique_id=2048116689 instance=ExtResource("1_w8ath")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -35, 0.39999998, 110)
+
+[node name="Mato12" parent="." unique_id=644692816 instance=ExtResource("1_w8ath")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -40, 0.39999998, -5)
+
+[node name="Mato13" parent="." unique_id=1875982907 instance=ExtResource("1_w8ath")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -16, 0.39999998, -2)
+
+[node name="Mato14" parent="." unique_id=944924094 instance=ExtResource("1_w8ath")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -12, 0.39999998, -14)
+
+[node name="Mato15" parent="." unique_id=1922687991 instance=ExtResource("1_w8ath")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -15, 0.39999998, -51)

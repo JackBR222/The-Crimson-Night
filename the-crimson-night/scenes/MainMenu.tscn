@@ -4,7 +4,6 @@
 [ext_resource type="AudioStream" uid="uid://bmogg03p5k0pq" path="res://audio/Tension.mp3" id="1_yovvs"]
 [ext_resource type="Texture2D" uid="uid://bm06brnjm1fwl" path="res://sprites/menu/MenuStart.png" id="2_2wh52"]
 [ext_resource type="Texture2D" uid="uid://ci4y3et5iutyi" path="res://sprites/menu/MenuMain.png" id="3_826wr"]
-[ext_resource type="PackedScene" uid="uid://od3a3mi528a4" path="res://scenes/Intro.tscn" id="3_wrgne"]
 [ext_resource type="Texture2D" uid="uid://b2cg3ox6dlfgr" path="res://sprites/menu/buttons/ButtonStart.png" id="4_7la6k"]
 [ext_resource type="Texture2D" uid="uid://c2opl2ahyymtr" path="res://sprites/menu/MenuConfig.png" id="4_ucygd"]
 [ext_resource type="Texture2D" uid="uid://erxq5lmkjkx" path="res://sprites/menu/buttons/ButtonQuit.png" id="5_mipys"]
@@ -45,7 +44,7 @@ parameters/looping = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=875875823 node_paths=PackedStringArray("press_start_panel", "main_panel", "options_panel", "help_panel", "credits_panel", "menu_background", "fade_overlay", "any_press_start", "start_button", "continue_button", "options_button", "help_button", "credits_button", "quit_button", "options_back_button", "help_back_button", "credits_back_button", "music_slider", "sfx_slider")]
 script = ExtResource("1_826wr")
-start_scene = ExtResource("3_wrgne")
+start_scene_path = "uid://od3a3mi528a4"
 press_start_panel = NodePath("PressStartPanel")
 main_panel = NodePath("MainMenuPanel")
 options_panel = NodePath("OptionsPanel")
@@ -417,10 +416,10 @@ text = "[b]A[/b] Confirmar | [b]D[/b] Voltar"
 vertical_alignment = 2
 
 [connection signal="button_down" from="CanvasLayer/MainMenuPanel/ScrollContainer/VBoxContainer/StartButton" to="CanvasLayer" method="_on_start_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/MainMenuPanel/ScrollContainer/VBoxContainer/ContinueButton" to="CanvasLayer" method="_on_continue_button_pressed"]
+[connection signal="button_down" from="CanvasLayer/MainMenuPanel/ScrollContainer/VBoxContainer/ContinueButton" to="CanvasLayer" method="_on_continue_button_pressed"]
 [connection signal="button_down" from="CanvasLayer/MainMenuPanel/ScrollContainer/VBoxContainer/OptionsButton" to="CanvasLayer" method="_on_options_button_pressed"]
 [connection signal="button_down" from="CanvasLayer/MainMenuPanel/ScrollContainer/VBoxContainer/CreditsButton" to="CanvasLayer" method="_on_credits_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/MainMenuPanel/ScrollContainer/VBoxContainer/QuitButton" to="CanvasLayer" method="_on_quit_button_pressed"]
+[connection signal="button_down" from="CanvasLayer/MainMenuPanel/ScrollContainer/VBoxContainer/QuitButton" to="CanvasLayer" method="_on_quit_button_pressed"]
 [connection signal="button_down" from="CanvasLayer/OptionsPanel/BottomLeft/OptionsBackButton" to="CanvasLayer" method="_on_options_back_button_pressed"]
 [connection signal="button_down" from="CanvasLayer/OptionsPanel/Center/HelpButton" to="CanvasLayer" method="_on_help_button_pressed"]
 [connection signal="button_down" from="CanvasLayer/CreditsPanel/BottomLeft/CreditsBackButton" to="CanvasLayer" method="_on_credits_back_button_pressed"]

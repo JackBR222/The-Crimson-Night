@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://b2nllr3fbam4d" path="res://scripts/DialogueAutoStart.gd" id="1_fnpsr"]
 [ext_resource type="Resource" uid="uid://8hvrvf0rmb2c" path="res://dialogue/characters/Ending.dtl" id="2_fnpsr"]
-[ext_resource type="PackedScene" uid="uid://2gskjq56nigd" path="res://scenes/MainMenu.tscn" id="3_ryuiv"]
 [ext_resource type="AudioStream" uid="uid://c1q4c2e8v47nx" path="res://audio/GameWin.mp3" id="4_5q2ai"]
 [ext_resource type="Texture2D" uid="uid://dcoawwurbjgc4" path="res://sprites/menu/Teladefuga.png" id="4_ryuiv"]
 [ext_resource type="Script" uid="uid://cqtr3kwn8vr7p" path="res://scripts/FadeController.gd" id="6_xej5p"]
@@ -12,7 +11,7 @@ script = ExtResource("1_fnpsr")
 dialog_timeline = ExtResource("2_fnpsr")
 start_delay = 2.0
 change_scene_on_end = true
-next_scene = ExtResource("3_ryuiv")
+next_scene_path = "uid://2gskjq56nigd"
 ignore_player = true
 
 [node name="MusicPlayer" type="AudioStreamPlayer" parent="." unique_id=811605952]

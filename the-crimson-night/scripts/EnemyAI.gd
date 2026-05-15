@@ -53,7 +53,6 @@ var current_patrol_group: Array[Node3D] = []
 var current_patrol_group_number: int = 1
 
 var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
-var can_trigger_chase_music := false
 var music_transitioning := false
 var fade_id := 0
 
@@ -109,12 +108,6 @@ func _ready() -> void:
 	_set_patrol_group(patrol_points_1, 1)
 	_enter_state(State.IDLE if current_patrol_group.is_empty() else State.PATROL)
 
-	_play_from_start(bgm_player)
-	bgm_player.volume_db = 0
-
-	await get_tree().create_timer(5.0).timeout
-	can_trigger_chase_music = true
-
 	Dialogic.signal_event.connect(_on_dialogic_signal)
 
 
@@ -143,7 +136,7 @@ func _physics_process(delta: float) -> void:
 # INTERROMPER CHASE SE ESCONDIDO
 func _check_hidden_interrupt() -> void:
 	if state == State.CHASE and player_is_hidden:
-		investigate_position = global_position
+		investigate_position = last_known_player_position
 		_enter_state(State.INVESTIGATE)
 
 
@@ -176,8 +169,8 @@ func _state_patrol(delta: float) -> void:
 func _state_investigate(delta: float) -> void:
 	var dist = _flat_distance(global_position, investigate_position)
 
-	if dist > investigate_reach_distance:
-		_move(speed_walk)
+	if dist > investigate_reach_distance and not agent.is_navigation_finished():
+		_move(speed_run)
 		investigate_timer = investigate_wait_time
 	else:
 		velocity.x = lerp(velocity.x, 0.0, 0.25)
@@ -487,8 +480,6 @@ func _play_from_start(player: AudioStreamPlayer) -> void:
 
 # TROCA DIRETA PARA MÚSICA DE CHASE
 func _switch_to_chase_music() -> void:
-	if not can_trigger_chase_music:
-		return
 
 	# Se já estiver tocando a música de chase, não reinicia
 	if chase_player.playing:
@@ -504,8 +495,6 @@ func _switch_to_chase_music() -> void:
 
 # TROCA DIRETA PARA MÚSICA NORMAL
 func _switch_to_normal_music() -> void:
-	if not can_trigger_chase_music:
-		return
 
 	# Se música normal já estiver tocando, não reinicia
 	if bgm_player.playing:
@@ -529,4 +518,4 @@ func _on_dialogic_signal(argument: String) -> void:
 	match argument:
 
 		"player_noise":
-			hear_noise(target)
+			hear_noise(target.global_position)

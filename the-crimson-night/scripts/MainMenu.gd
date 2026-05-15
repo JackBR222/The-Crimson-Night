@@ -6,7 +6,7 @@ extends CanvasLayer
 @export var fade_speed_intro: float = 1.0
 @export var fade_speed_menu: float = 0.2
 
-@export var start_scene: PackedScene
+@export_file("*.tscn", "*.scn") var start_scene_path: String
 
 # PANELS
 @export var press_start_panel: Control
@@ -481,7 +481,7 @@ func _on_start_button_pressed() -> void:
 
 	await fade_in(fade_speed_intro)
 
-	get_tree().change_scene_to_packed(start_scene)
+	get_tree().change_scene_to_file(start_scene_path)
 
 
 func _on_continue_button_pressed() -> void:

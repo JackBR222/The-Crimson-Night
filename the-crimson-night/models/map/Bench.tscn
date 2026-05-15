@@ -8,8 +8,8 @@ resource_name = "Bench"
 vertex_color_use_as_albedo = true
 albedo_texture = ExtResource("2_72wiu")
 emission_enabled = true
-emission = Color(1, 1, 1, 1)
-emission_energy_multiplier = 0.0
+emission_energy_multiplier = 0.25
+emission_texture = ExtResource("2_72wiu")
 texture_filter = 0
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_lahd5"]
@@ -49,7 +49,7 @@ data = PackedVector3Array(-0.01, 0.01, 0.01, -0.01, -0.01, 0.01, -0.01, -0.01, -
 
 [node name="Bench" unique_id=861313577 instance=ExtResource("1_u72jo")]
 
-[node name="Bench" parent="." index="0" unique_id=1337573367]
+[node name="Bench" parent="." index="0" unique_id=1707342886]
 mesh = SubResource("ArrayMesh_tvxe1")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Bench" index="0" unique_id=344969717]

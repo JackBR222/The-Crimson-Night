@@ -32,29 +32,33 @@ directories/dch_directory={
 "Unknown": "res://dialogue/characters/Unknown.dch"
 }
 directories/dtl_directory={
-"ArmazemDoor": "res://dialogue/ArmazemDoor.dtl",
+"CardCloset": "res://dialogue/CardCloset.dtl",
 "Ending": "res://dialogue/characters/Ending.dtl",
 "ExitGate": "res://dialogue/ExitGate.dtl",
-"FuseBox": "res://dialogue/FuseBox.dtl",
-"FuseBox1": "res://dialogue/FuseBox1.dtl",
+"FuseBoxClosed": "res://dialogue/FuseBoxClosed.dtl",
+"FuseBoxOpen": "res://dialogue/FuseBoxOpen.dtl",
 "GBoxClosed": "res://dialogue/GBoxClosed.dtl",
-"GBoxOpened": "res://dialogue/GBoxOpened.dtl",
+"GBoxOpen": "res://dialogue/GBoxOpen.dtl",
 "GuaritaDoor": "res://dialogue/GuaritaDoor.dtl",
 "Intro": "res://dialogue/Intro.dtl",
 "Jorge": "res://dialogue/Jorge.dtl",
+"PadlockCloset": "res://dialogue/PadlockCloset.dtl",
 "Paper1": "res://dialogue/files/Paper1.dtl",
 "Paper2": "res://dialogue/files/Paper2.dtl",
-"ReunionDoor": "res://dialogue/ReunionDoor.dtl",
 "paper3": "res://dialogue/files/paper3.dtl",
 "test": "res://dialogue/test/test.dtl",
 "testDoor": "res://dialogue/test/testDoor.dtl",
 "testDoor2Keys": "res://dialogue/test/testDoor2Keys.dtl",
 "testDoorCheckPoint": "res://dialogue/test/testDoorCheckPoint.dtl"
 }
-layout/style_directory={}
+layout/style_directory={
+"": "res://dialogue/Styles/Style.tres",
+"Style": "res://dialogue/Styles/Style.tres"
+}
 variables={
 "current_door_id": "",
 "first_interaction": false,
+"fusebox_done": false,
 "multi_key_door": 0,
 "player_item_type": "none",
 "read_intro": false
@@ -93,8 +97,8 @@ audio/channel_defaults={
 "volume": 0.0
 }
 }
-layout/style_list=[]
-layout/default_style="Default"
+layout/style_list=["res://dialogue/Styles/Style.tres"]
+layout/default_style="res://dialogue/Styles/Style.tres"
 glossary/glossary_files=[]
 
 [display]

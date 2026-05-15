@@ -4,11 +4,15 @@ extends CanvasItem
 @export var start_black: bool = false
 @export var start_black_delay: float = 1.0
 
+signal fade_started(target_alpha: float)
+signal fade_in_started
+signal fade_out_started
 signal fade_finished
 
 var _tween: Tween
 var _busy := false
 var _queue: Array = []
+
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -16,18 +20,13 @@ func _ready() -> void:
 
 	if start_black:
 		modulate.a = 1.0
-		_start_black_fade()
+		await get_tree().create_timer(start_black_delay).timeout
+		fade_out(default_fade_time)
 	else:
 		modulate.a = 0.0
 
 
-# DELAY + FADE INICIAL
-func _start_black_fade() -> void:
-	await get_tree().create_timer(start_black_delay).timeout
-	fade_out(default_fade_time)
-
-
-# API PÚBLICA
+# API
 func fade_in(time: float = -1.0, priority: bool = false) -> void:
 	_request_fade(1.0, time, priority)
 
@@ -58,8 +57,7 @@ func _process_queue() -> void:
 	if _busy or _queue.is_empty():
 		return
 
-	var request = _queue.pop_front()
-	_start_fade(request)
+	_start_fade(_queue.pop_front())
 
 
 func _start_fade(request: Dictionary) -> void:
@@ -71,26 +69,36 @@ func _start_fade(request: Dictionary) -> void:
 	if _tween:
 		_tween.kill()
 
+	var target_alpha: float = request["alpha"]
+	var time: float = request["time"]
+
+	emit_signal("fade_started", target_alpha)
+
+	if target_alpha >= 1.0:
+		emit_signal("fade_in_started")
+	else:
+		emit_signal("fade_out_started")
+
 	_tween = create_tween()
-	_tween.tween_property(self, "modulate:a", request["alpha"], request["time"])
+	_tween.tween_property(self, "modulate:a", target_alpha, time)
 
 	await _tween.finished
 
 	_busy = false
-
-	if is_inside_tree():
-		emit_signal("fade_finished")
+	emit_signal("fade_finished")
 
 	_process_queue()
 
 
-# UTILIDADES
+# HELPERS
 func is_busy() -> bool:
 	return _busy
+
 
 func wait_fade() -> void:
 	if _tween:
 		await _tween.finished
+
 
 func wait_finished() -> void:
 	if _busy:

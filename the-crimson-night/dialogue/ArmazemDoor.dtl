@@ -1,8 +1,0 @@
-if {player_item_type} == "Card":
-	Abriu!
-	[signal arg="consume:Card"]
-	[signal arg="change_model_alt"]
-	[signal arg="reveal:Wrench"]
-	[signal arg="lock_interaction"]
-else:
-	Preciso de um cartão

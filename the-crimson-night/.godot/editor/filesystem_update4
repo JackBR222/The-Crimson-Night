@@ -1,3 +1,12 @@
-res://scenes/Ending.tscn
+res://dialogue/Styles/Style.tres
+res://dialogue/Intro.dtl
+res://dialogue/files/Paper1.dtl
+res://dialogue/files/Paper2.dtl
+res://dialogue/files/paper3.dtl
+res://dialogue/FuseBoxOpen.dtl
+res://scenes/Game.scn
 res://sprites/ShinyAnim.tres
-res://scripts/FadeController.gd
+res://dialogue/CardCloset.dtl
+res://scripts/EnemyAI.gd
+res://prefabs/Enemy.tscn
+res://models/map/groups/BenchGroup.tscn

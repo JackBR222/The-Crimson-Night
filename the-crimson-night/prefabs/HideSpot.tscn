@@ -91,12 +91,13 @@ shadow_mesh = SubResource("ArrayMesh_adfxt")
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_m4kft"]
 height = 3.121875
-radius = 1.7
+radius = 2.1000001
 
 [node name="HideSpot" type="StaticBody3D" unique_id=765116853]
 collision_layer = 3
 script = ExtResource("1_2ewra")
 hidden_height = 4.0
+hidden_rotation_speed = 100.0
 
 [node name="BASE" type="MeshInstance3D" parent="." unique_id=1792961587]
 transform = Transform3D(87.58, 0, 0, 0, -3.8282433e-06, 87.58, 0, -87.58, -3.8282433e-06, -0.03729272, 1.6886753, -0.0484401)

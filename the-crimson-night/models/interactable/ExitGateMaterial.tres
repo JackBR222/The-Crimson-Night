@@ -1,6 +1,6 @@
 [gd_resource type="StandardMaterial3D" format=3 uid="uid://br6m88f5lqotb"]
 
-[ext_resource type="Texture2D" uid="uid://dcxq4xkjdcwi6" path="res://models/map/Grade_texture.png" id="1_75o04"]
+[ext_resource type="Texture2D" uid="uid://dcxq4xkjdcwi6" path="res://models/map/Grid_texture.png" id="1_75o04"]
 
 [resource]
 resource_name = "Grade"

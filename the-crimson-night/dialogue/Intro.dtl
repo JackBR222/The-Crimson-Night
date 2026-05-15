@@ -3,32 +3,36 @@ if {read_intro} == true:
 	- Sim
 		[end_timeline]
 	- Não
-audio "res://audio/sounds/Walktalk.mp3"
+audio "res://audio/sounds/walkie-talkie.mp3"
 [wait time="2.0"]
 Unknown: Boa noite, parceiro. Na escuta?
 Unknown: Mentira que é tu, Figner! Tá fazendo o que aqui essa hora da noite?
+[wait time="0.1"]
+[background arg="res://sprites/Cutscene.png" fade="2.0" wait="true"]
 Figner: A [color=red]13 de Maio[/color] sem mim não tem nem graça, Jorge. Tô aqui cobrindo teu parceiro, soube não? Dizem que ele ficou doente.
 Jorge: E foi, foi? Aí tu vem me atazanar, né? Vigia teu posto aí, que ficou uns “5 pá” dentro hoje, visse.
 Figner: Beleza, já vai dar umas meia-noite e meia. Espero que os moradores de rua estejam com sono e não arrumem B.O. logo hoje.
-audio "res://audio/sounds/grito do jorge.mp3"
+audio "res://audio/sounds/jorge_scream.mp3"
 [wait time="3.0"]
 Figner: Jorge, tá aí? O que tá acontecendo?
 Jorge: EU NÃO SEI! TEM ALGUÉM AÍ?!
 Jorge: NÃO, PARECE UM BICHO ENORME!
 Figner: Jorge, fala comigo! O que tá acontecendo? Invadiram?
-audio "res://audio/sounds/Walktalk.mp3"
+audio "res://audio/sounds/walkie-talkie.mp3"
 [wait time="2.0"]
 [i]~A energia do parque cai de repente~[/i]
+[background fade="2.0" wait="true"]
 [wait time="1.0"]
 Figner: Jorge, alô? Qual a situação?
 Jorge: FIGNER, A GENTE PRECISA SAIR DESSE PARQUE AGORA! AQUELA COISA LÁ FORA TÁ MATANDO!
 Figner: Sair? Eu não consigo passar pro teu lado. O portão precisa de energia. O que eu faço?
-Jorge: Me escuta, presta atenção. No armazém tem um gerador. Você consegue ligar a energia de volta por lá. Eu tô com a chave da saída, vou te esperar aqui, não se preocupe.
+Jorge: Me escuta, presta atenção. No armazém tem um gerador. Você consegue ligar a energia de volta por lá.
+Jorge: Eu tô com a chave da saída, vou te esperar aqui, não se preocupe.
 Jorge: Vou te esperar, toma cui-
 audio -
 [wait time="1.0"]
 Figner: Jorge? Jorge?
 [i]~ Sem entender nada Figner sai da guarita tremendo e ofegante que acaba deixando suas chaves caírem de sua mão~[i]
-audio "res://audio/sounds/chave caindo.mp3"
+audio "res://audio/sounds/key_falling.mp3"
 [wait time="2.0"]
 # Depois da Jaqueira Geek, colocar set variable true para a variável read_intro

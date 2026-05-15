@@ -1,63 +1,81 @@
 extends CanvasLayer
 
-@onready var player = get_tree().current_scene.get_node("Player/Player")
+@onready var player = get_tree().current_scene.get_node_or_null("Player/Player")
 
-@export var background: TextureRect
+# PANELS
 @export var panel: Control
 @export var options_panel: Control
+@export var help_panel: Control
 
+# UI
+@export var background: TextureRect
+
+# BOTÕES
 @export var resume_button: TextureButton
 @export var options_button: TextureButton
 @export var main_menu_button: TextureButton
 @export var options_back_button: BaseButton
+@export var help_button: TextureButton
+@export var help_back_button: BaseButton
 
+# CENAS
+@export_file("*.tscn", "*.scn") var main_menu_scene_path: String
+
+# BACKGROUNDS
 @export var bg_pause: Texture2D
 @export var bg_options: Texture2D
+@export var bg_help: Texture2D
 
+# SONS DE UI
 @export var ui_click_sound: AudioStream
 @export var ui_hover_sound: AudioStream
 
+# ÁUDIO
 @onready var music_preview_player: AudioStreamPlayer = $MusicPreviewPlayer
 @onready var sfx_preview_player: AudioStreamPlayer = $SFXPreviewPlayer
 
 @onready var music_slider: HSlider = $OptionsPanel/Center/MusicSlider
 @onready var sfx_slider: HSlider = $OptionsPanel/Center/SFXSlider
 
+# ESTADOS
 var paused := false
+var in_options := false
+var in_help := false
+
+# INPUT LOCKED PARA O MENU (NÃO AFETA PLAYER)
 var input_locked := false
 
+# PREVIEW FLAGS
 var can_play_music_preview := true
 var can_play_sfx_preview := true
 
-@onready var ui_click_player: AudioStreamPlayer = AudioStreamPlayer.new()
-@onready var ui_hover_player: AudioStreamPlayer = AudioStreamPlayer.new()
+# sistema de pulse de foco
+var focus_tweens := {}
 
-var focused_button: Control = null
-var button_tweens := {}
+# SONS DE UI
+@onready var ui_sfx: AudioStreamPlayer = AudioStreamPlayer.new()
+@onready var ui_hover_sfx: AudioStreamPlayer = AudioStreamPlayer.new()
 
 
 # INIT
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 
+	background.visible = false
 	panel.visible = false
 	options_panel.visible = false
+	help_panel.visible = false
 
-	add_child(ui_click_player)
-	ui_click_player.bus = "SFX"
-	ui_click_player.stream = ui_click_sound
+	add_child(ui_sfx)
+	ui_sfx.bus = "SFX"
+	ui_sfx.stream = ui_click_sound
 
-	add_child(ui_hover_player)
-	ui_hover_player.bus = "SFX"
-	ui_hover_player.stream = ui_hover_sound
+	add_child(ui_hover_sfx)
+	ui_hover_sfx.bus = "SFX"
+	ui_hover_sfx.stream = ui_hover_sound
 
-	_register_button(resume_button)
-	_register_button(options_button)
-	_register_button(main_menu_button)
-	_register_button(options_back_button)
-
-	music_slider.value_changed.connect(_on_music_slider_changed)
-	sfx_slider.value_changed.connect(_on_sfx_slider_changed)
+	setup_audio_sliders()
+	connect_button_sounds()
 
 
 # INPUT
@@ -66,14 +84,28 @@ func _input(event: InputEvent) -> void:
 		return
 
 	if event.is_action_pressed("pause_game"):
-		if not options_panel.visible:
-			toggle_pause()
+		if paused:
+			if in_options:
+				close_options()
+
+			elif in_help:
+				close_help()
+
+			else:
+				close_pause_menu()
+
+		else:
+			open_pause_menu()
 
 	elif event.is_action_pressed("ui_cancel"):
-		if options_panel.visible:
+		if in_help:
+			close_help()
+
+		elif in_options:
 			close_options()
+
 		elif paused:
-			toggle_pause()
+			close_pause_menu()
 
 
 # BLOQUEIO DE INPUT
@@ -83,38 +115,179 @@ func set_ui_blocked(blocked: bool) -> void:
 	var controls := [
 		panel,
 		options_panel,
+		help_panel,
+		background,
+
 		resume_button,
 		options_button,
+		help_button,
 		main_menu_button,
 		options_back_button,
+		help_back_button,
+
 		music_slider,
-		sfx_slider,
-		background
+		sfx_slider
 	]
 
 	for c in controls:
 		if c:
 			c.mouse_filter = mode
 
-	for b in [resume_button, options_button, main_menu_button, options_back_button]:
+	for b in [
+		resume_button,
+		options_button,
+		help_button,
+		main_menu_button,
+		options_back_button,
+		help_back_button
+	]:
 		if b:
 			b.disabled = blocked
 
 
+# CONTROLE DO JOGO
+func freeze_game() -> void:
+	get_tree().paused = true
+
+	# congela inimigos
+	get_tree().call_group(
+		"enemies",
+		"set_process_mode",
+		Node.PROCESS_MODE_DISABLED
+	)
+
+	# congela player
+	if player:
+		player.set_process_mode(Node.PROCESS_MODE_DISABLED)
+
+
+func unfreeze_game() -> void:
+	get_tree().paused = false
+
+	# descongela inimigos
+	get_tree().call_group(
+		"enemies",
+		"set_process_mode",
+		Node.PROCESS_MODE_INHERIT
+	)
+
+	# descongela player
+	if player:
+		player.set_process_mode(Node.PROCESS_MODE_INHERIT)
+
+
+# SONS DE UI
+func play_ui_click() -> void:
+	if ui_sfx.stream:
+		ui_sfx.play()
+
+
+func play_ui_hover() -> void:
+	if ui_hover_sfx.stream:
+		ui_hover_sfx.play()
+
+
+# FOCO + PULSE
+func connect_button_sounds() -> void:
+	var buttons = [
+		resume_button,
+		options_button,
+		help_button,
+		main_menu_button,
+		options_back_button,
+		help_back_button
+	]
+
+	for btn in buttons:
+		if not btn:
+			continue
+
+		btn.focus_entered.connect(func(): on_button_focus(btn))
+		btn.focus_exited.connect(func(): on_button_unfocus(btn))
+
+		btn.mouse_entered.connect(func():
+			if not input_locked:
+				btn.grab_focus()
+		)
+
+
+func on_button_focus(btn: Control) -> void:
+	play_ui_hover()
+	start_focus_pulse(btn)
+
+
+func on_button_unfocus(btn: Control) -> void:
+	stop_focus_pulse(btn)
+	btn.modulate = Color.WHITE
+
+
+func start_focus_pulse(btn: Control) -> void:
+	stop_focus_pulse(btn)
+
+	var t := create_tween().set_loops()
+	focus_tweens[btn] = t
+
+	t.tween_property(btn, "modulate", Color(1.6,1.6,1.6), 0.4)
+	t.tween_property(btn, "modulate", Color(1.1,1.1,1.1), 0.4)
+
+
+func stop_focus_pulse(btn: Control) -> void:
+	if focus_tweens.has(btn):
+		focus_tweens[btn].kill()
+		focus_tweens.erase(btn)
+
+
+# FOCO
+func set_focus(node: Control) -> void:
+	if not node:
+		return
+
+	await get_tree().process_frame
+
+	if node.is_inside_tree() and node.visible:
+		node.grab_focus()
+
+
 # PAUSE
-func toggle_pause() -> void:
+func open_pause_menu() -> void:
 	input_locked = true
 	set_ui_blocked(true)
 
-	paused = !paused
-	get_tree().paused = paused
+	background.visible = true
+	paused = true
+	in_options = false
+	in_help = false
+	help_panel.visible = false
 
-	panel.visible = paused
+	freeze_game()
+
+	panel.visible = true
 	options_panel.visible = false
 
-	if paused:
-		background.texture = bg_pause
-		resume_button.grab_focus()
+	background.texture = bg_pause
+
+	await get_tree().process_frame
+
+	set_focus(resume_button)
+
+	input_locked = false
+	set_ui_blocked(false)
+
+
+func close_pause_menu() -> void:
+	input_locked = true
+	set_ui_blocked(true)
+
+	background.visible = false
+	paused = false
+	in_options = false
+	in_help = false
+	help_panel.visible = false
+
+	panel.visible = false
+	options_panel.visible = false
+
+	unfreeze_game()
 
 	await get_tree().process_frame
 
@@ -124,123 +297,155 @@ func toggle_pause() -> void:
 
 # OPTIONS
 func open_options() -> void:
+	input_locked = true
+	in_options = true
+
 	panel.visible = false
 	options_panel.visible = true
+
 	background.texture = bg_options
 
 	await get_tree().process_frame
-	options_back_button.grab_focus()
+
+	if music_slider:
+		set_focus(music_slider)
+	else:
+		set_focus(options_back_button)
+
+	input_locked = false
 
 
 func close_options() -> void:
+	input_locked = true
+	in_options = false
+
 	options_panel.visible = false
 	panel.visible = true
+
 	background.texture = bg_pause
 
 	await get_tree().process_frame
-	resume_button.grab_focus()
+
+	set_focus(options_button)
+
+	input_locked = false
 
 
 # AUDIO
-func _on_music_slider_changed(value: float) -> void:
-	AudioServer.set_bus_volume_db(
-		AudioServer.get_bus_index("Music"),
-		linear_to_db(value)
-	)
-	_play_preview(music_preview_player, "music")
+func setup_audio_sliders() -> void:
+	var buses = {
+		"Music": music_slider,
+		"SFX": sfx_slider
+	}
+
+	for bus_name in buses:
+		var slider = buses[bus_name]
+
+		if not slider:
+			continue
+
+		var idx = AudioServer.get_bus_index(bus_name)
+
+		slider.value = db_to_linear(
+			AudioServer.get_bus_volume_db(idx)
+		)
+
+		slider.value_changed.connect(func(v):
+			AudioServer.set_bus_volume_db(
+				idx,
+				linear_to_db(v)
+			)
+
+			_play_preview(
+				sfx_preview_player,
+				bus_name.to_lower()
+			)
+		)
 
 
-func _on_sfx_slider_changed(value: float) -> void:
-	AudioServer.set_bus_volume_db(
-		AudioServer.get_bus_index("SFX"),
-		linear_to_db(value)
-	)
-	_play_preview(sfx_preview_player, "sfx")
+# PREVIEW AUDIO
+func _play_preview(player_preview: AudioStreamPlayer, type: String) -> void:
+	var flags = {
+		"music": "can_play_music_preview",
+		"sfx": "can_play_sfx_preview"
+	}
 
-
-func _play_preview(_stream_player: AudioStreamPlayer, type: String) -> void:
-	var flag = "can_play_%s_preview" % type
+	var flag = flags[type]
 
 	if not self.get(flag):
 		return
 
 	self.set(flag, false)
-	_stream_player.play()
+
+	player_preview.play()
 
 	await get_tree().create_timer(0.5).timeout
+
 	self.set(flag, true)
 
 
-# ACTIONS
+# HELP
+func open_help() -> void:
+	input_locked = true
+	in_help = true
+
+	options_panel.visible = false
+	help_panel.visible = true
+
+	background.texture = bg_help
+
+	await get_tree().process_frame
+
+	set_focus(help_back_button)
+
+	input_locked = false
+
+
+func close_help() -> void:
+	input_locked = true
+	in_help = false
+
+	help_panel.visible = false
+	options_panel.visible = true
+
+	background.texture = bg_options
+
+	await get_tree().process_frame
+
+	set_focus(help_button)
+
+	input_locked = false
+
+
+# BOTÕES
 func _on_resume_pressed() -> void:
-	ui_click_player.play()
-	toggle_pause()
+	play_ui_click()
+	close_pause_menu()
 
 
 func _on_options_pressed() -> void:
-	ui_click_player.play()
+	play_ui_click()
 	open_options()
 
 
 func _on_options_back_pressed() -> void:
-	ui_click_player.play()
+	play_ui_click()
 	close_options()
 
 
 func _on_main_menu_pressed() -> void:
-	ui_click_player.play()
-	get_tree().paused = false
-	get_tree().change_scene_to_file("res://scenes/MainMenu.tscn")
+	play_ui_click()
+	unfreeze_game()
+
+	get_tree().change_scene_to_file(main_menu_scene_path)
 
 
-# FOCUS SYSTEM
-func _register_button(btn: Control) -> void:
-	if btn == null:
-		return
 
-	btn.focus_entered.connect(_on_button_focus.bind(btn))
-	btn.focus_exited.connect(_on_button_unfocus.bind(btn))
-	btn.mouse_entered.connect(func():
-		if not input_locked:
-			btn.grab_focus()
-	)
+func _on_help_pressed() -> void:
+	play_ui_click()
+	open_help()
 
 
-func _on_button_focus(btn: Control) -> void:
-	focused_button = btn
-	ui_hover_player.play()
-	_apply_hover(btn)
-	_start_pulse(btn)
-
-
-func _on_button_unfocus(btn: Control) -> void:
-	if focused_button == btn:
-		focused_button = null
-	_apply_normal(btn)
-	_stop_pulse(btn)
-
-
-# VISUAL STATES
-func _apply_normal(btn: Control) -> void:
-	btn.modulate = Color.WHITE
-
-
-func _apply_hover(btn: Control) -> void:
-	btn.modulate = Color(1.3, 1.3, 1.3)
-
-
-# PULSE
-func _start_pulse(btn: Control) -> void:
-	_stop_pulse(btn)
-
-	var t := create_tween().set_loops()
-	button_tweens[btn] = t
-
-	t.tween_property(btn, "modulate", Color(1.6,1.6,1.6), 0.4)
-	t.tween_property(btn, "modulate", Color(1.1,1.1,1.1), 0.4)
-
-
-func _stop_pulse(btn: Control) -> void:
-	if button_tweens.has(btn):
-		button_tweens[btn].kill()
-		button_tweens.erase(btn)
+func _on_help_back_pressed() -> void:
+	play_ui_click()
+	close_help()
