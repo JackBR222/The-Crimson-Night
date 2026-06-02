@@ -1,0 +1,8 @@
+if {player_item_type} == "pocket_knife":
+	[signal arg="consume:pocket_knife"]
+	[signal arg="change_timeline_2"]
+	[signal arg="change_model_2"]
+	Né lasca!!
+	Tenho que pegar um alicate pra torar esses fio, se não fizer isso vou tomar um choque da gota.
+else:
+	Vou precisar de algo para cortar essas fitas!

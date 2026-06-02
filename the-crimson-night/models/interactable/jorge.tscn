@@ -9,6 +9,9 @@ transparency = 4
 cull_mode = 2
 albedo_texture = ExtResource("2_cs8vv")
 roughness = 0.5
+emission_enabled = true
+emission_energy_multiplier = 0.4
+emission_texture = ExtResource("2_cs8vv")
 texture_filter = 0
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_dbndn"]
@@ -33,7 +36,7 @@ blend_shape_mode = 0
 
 [node name="jorge" unique_id=477294208 instance=ExtResource("1_jc66y")]
 
-[node name="Skeleton3D" parent="Armature" parent_id_path=PackedInt32Array(126814291) index="0" unique_id=1283478492]
+[node name="Skeleton3D" parent="Armature" parent_id_path=PackedInt32Array(1689734603) index="0" unique_id=277824003]
 bones/0/rotation = Quaternion(-0.0983645, -0.010312905, -0.016757313, 0.99495596)
 bones/3/rotation = Quaternion(-0.02213557, 0.018328214, -0.79151136, 0.6104784)
 bones/4/rotation = Quaternion(-0.178457, 0.119754, -0.56819063, 0.7943371)
@@ -50,8 +53,8 @@ bones/26/rotation = Quaternion(-0.66587764, 0.32384914, -0.26431543, 0.6179532)
 bones/27/rotation = Quaternion(0.1592659, -0.0015417741, -0.025398184, 0.98690784)
 bones/29/rotation = Quaternion(-0.47080874, 0.0016984541, 0.003950828, 0.88222486)
 
-[node name="Jorge" parent="Armature/Skeleton3D" index="0" unique_id=845107809]
+[node name="Jorge" parent="Armature/Skeleton3D" index="0" unique_id=440299679]
 mesh = SubResource("ArrayMesh_dbndn")
 
-[node name="AnimationPlayer" parent="." index="1" unique_id=1596969164]
+[node name="AnimationPlayer" parent="." index="1" unique_id=30349894]
 deterministic = true

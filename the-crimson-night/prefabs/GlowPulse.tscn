@@ -5,6 +5,8 @@
 
 [node name="GlowPulse" type="AnimatedSprite3D" unique_id=924555723]
 transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 0, 0)
+cast_shadow = 0
+gi_mode = 0
 billboard = 1
 texture_filter = 0
 sprite_frames = ExtResource("1_1w41e")

@@ -1,0 +1,3 @@
+if {player_item_type} == "Wrench":
+else:
+	Já abriu

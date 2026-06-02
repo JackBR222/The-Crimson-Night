@@ -1,0 +1,9 @@
+if {player_item_type} == "Card":
+	audio "res://audio/sounds/BipCard.mp3"
+	Figner: Abriu!
+	[signal arg="consume:Card"]
+	[signal arg="change_model_2"]
+	[signal arg="reveal:Wrench"]
+	[signal arg="lock_interaction"]
+else:
+	Preciso de um [color=yellow]cartão[/color].

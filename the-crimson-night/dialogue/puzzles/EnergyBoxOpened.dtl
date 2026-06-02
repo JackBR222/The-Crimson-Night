@@ -1,0 +1,8 @@
+if {player_item_type} == "pliers":
+	[signal arg="consume:pliers"]
+	[signal arg="change_model_3"]
+	[signal arg="reveal:Fuse2"]
+	Pronto! Agora é só levar pro gerador
+	[signal arg="lock_interaction"]
+else:
+	Tenho que pegar um alicate pra torar esses fio, se não fizer isso vou tomar um choque da gota.

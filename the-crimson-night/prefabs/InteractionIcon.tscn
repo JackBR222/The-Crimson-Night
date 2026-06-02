@@ -1,19 +1,21 @@
 [gd_scene format=3 uid="uid://b5hrby2w1bk4p"]
 
 [ext_resource type="Texture2D" uid="uid://bju4hpnvwb1kn" path="res://sprites/PC.png" id="1_1278c"]
-[ext_resource type="Script" uid="uid://dfu12mop0y4tc" path="res://scripts/IconChangeController.gd" id="2_dm5ql"]
+[ext_resource type="Script" uid="uid://dfu12mop0y4tc" path="res://scripts/ui/IconChangeController.gd" id="2_dm5ql"]
+[ext_resource type="Texture2D" uid="uid://cecnpwysllo5l" path="res://sprites/BOTÃO J.png" id="3_dm5ql"]
 [ext_resource type="Texture2D" uid="uid://c4slituar5jut" path="res://sprites/Xbox.png" id="3_kqhee"]
 [ext_resource type="Texture2D" uid="uid://dhbggw2pi4xcg" path="res://sprites/PS5.png" id="4_exqsu"]
 [ext_resource type="Texture2D" uid="uid://cqeykpfkkuc1x" path="res://sprites/Nintendo.png" id="5_i7ovi"]
 
 [node name="InteractionIcon" type="Sprite3D" unique_id=1342255257]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+cast_shadow = 0
 billboard = 1
 no_depth_test = true
 texture_filter = 0
 texture = ExtResource("1_1278c")
 script = ExtResource("2_dm5ql")
-keyboard_texture = ExtResource("1_1278c")
+keyboard_texture = ExtResource("3_dm5ql")
 xbox_texture = ExtResource("3_kqhee")
 playstation_texture = ExtResource("4_exqsu")
 nintendo_texture = ExtResource("5_i7ovi")

@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://cyb8rs5jhai1"]
 
 [ext_resource type="Script" uid="uid://b2nllr3fbam4d" path="res://scripts/DialogueAutoStart.gd" id="1_fnpsr"]
-[ext_resource type="Resource" uid="uid://8hvrvf0rmb2c" path="res://dialogue/characters/Ending.dtl" id="2_fnpsr"]
+[ext_resource type="Resource" uid="uid://8hvrvf0rmb2c" path="res://dialogue/Ending.dtl" id="2_fnpsr"]
 [ext_resource type="AudioStream" uid="uid://c1q4c2e8v47nx" path="res://audio/GameWin.mp3" id="4_5q2ai"]
 [ext_resource type="Texture2D" uid="uid://dcoawwurbjgc4" path="res://sprites/menu/Teladefuga.png" id="4_ryuiv"]
-[ext_resource type="Script" uid="uid://cqtr3kwn8vr7p" path="res://scripts/FadeController.gd" id="6_xej5p"]
+[ext_resource type="Script" uid="uid://cqtr3kwn8vr7p" path="res://scripts/ui/FadeController.gd" id="6_xej5p"]
 
 [node name="Node3D" type="Node3D" unique_id=1568266438]
 script = ExtResource("1_fnpsr")

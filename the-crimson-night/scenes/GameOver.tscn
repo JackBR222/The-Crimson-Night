@@ -1,14 +1,14 @@
 [gd_scene format=3 uid="uid://5ht56812s0pn"]
 
-[ext_resource type="Script" uid="uid://cxjnv02hufy58" path="res://scripts/GameOver.gd" id="1_j3qfp"]
+[ext_resource type="Script" uid="uid://cxjnv02hufy58" path="res://scripts/ui/GameOver.gd" id="1_j3qfp"]
 [ext_resource type="AudioStream" uid="uid://dcfl6ck2mrmat" path="res://audio/GameOver.mp3" id="1_skdqa"]
 [ext_resource type="Texture2D" uid="uid://bw7333eiulb2m" path="res://sprites/menu/GameOver.png" id="2_skdqa"]
-[ext_resource type="Texture2D" uid="uid://b2hbd0uhk67na" path="res://sprites/menu/buttons/ButtonPressTryAgain.png" id="4_1ye5n"]
+[ext_resource type="Texture2D" uid="uid://b2hbd0uhk67na" path="res://sprites/menu/ButtonPressTryAgain.png" id="4_1ye5n"]
 [ext_resource type="Texture2D" uid="uid://6kw183a87d1y" path="res://sprites/menu/buttons/ButtonTryAgain.png" id="4_skdqa"]
-[ext_resource type="Texture2D" uid="uid://bj7juvjo7tgcn" path="res://sprites/menu/buttons/ButtonSelectTryAgain.png" id="5_5dsns"]
-[ext_resource type="Texture2D" uid="uid://1cmtmik2tsh6" path="res://sprites/menu/buttons/ButtonMenu.png" id="6_xlh57"]
-[ext_resource type="Texture2D" uid="uid://df0qfwm3dmsq" path="res://sprites/menu/buttons/ButtonPressMenu.png" id="7_kjj73"]
-[ext_resource type="Texture2D" uid="uid://bqf6j5315qy84" path="res://sprites/menu/buttons/ButtonSelectMenu.png" id="8_otmnh"]
+[ext_resource type="Texture2D" uid="uid://bj7juvjo7tgcn" path="res://sprites/menu/ButtonSelectTryAgain.png" id="5_5dsns"]
+[ext_resource type="Texture2D" uid="uid://1cmtmik2tsh6" path="res://sprites/menu/ButtonMenu.png" id="6_xlh57"]
+[ext_resource type="Texture2D" uid="uid://df0qfwm3dmsq" path="res://sprites/menu/ButtonPressMenu.png" id="7_kjj73"]
+[ext_resource type="Texture2D" uid="uid://bqf6j5315qy84" path="res://sprites/menu/ButtonSelectMenu.png" id="8_otmnh"]
 
 [node name="Node3D" type="Node3D" unique_id=1642647240]
 

@@ -1,0 +1,53 @@
+[gd_scene format=4 uid="uid://cmbv4n82yr77w"]
+
+[ext_resource type="PackedScene" uid="uid://b2v4b5ok64qxg" path="res://models/map/import/Sangue.fbx" id="1_ieros"]
+[ext_resource type="Texture2D" uid="uid://prhx5s4ayq3j" path="res://models/map/textures/Sangue.png" id="2_y6wxe"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xqr82"]
+resource_name = "Sangue"
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("2_y6wxe")
+emission_enabled = true
+emission = Color(0.84313726, 0.25882354, 0.27450982, 1)
+emission_energy_multiplier = 0.2
+texture_filter = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_montr"]
+_surfaces = [{
+"aabb": AABB(-0.01, -0.01, 0, 0.02, 0.02, 1e-05),
+"format": 34359742465,
+"index_count": 6,
+"index_data": PackedByteArray("AAABAAIAAgADAAAA"),
+"name": "Sangue",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 4,
+"vertex_data": PackedByteArray("CtcjPArXIzwAAAAACtcjPArXI7wAAAAACtcjvArXI7wAAAAACtcjvArXIzwAAAAA")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_7ikbv"]
+resource_name = "Plane"
+_surfaces = [{
+"aabb": AABB(-0.01, -0.01, 0, 0.02, 0.02, 1e-05),
+"attribute_data": PackedByteArray("AACAPwAAAAAAAIA/AACAPwAAAAAAAIA/AAAAAAAAAAA="),
+"format": 34359742487,
+"index_count": 6,
+"index_data": PackedByteArray("AAABAAIAAgADAAAA"),
+"material": SubResource("StandardMaterial3D_xqr82"),
+"name": "Sangue",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 4,
+"vertex_data": PackedByteArray("CtcjPArXIzwAAAAACtcjPArXI7wAAAAACtcjvArXI7wAAAAACtcjvArXIzwAAAAA/3//f////7//f/9/////v/9//3////+//3//f////78=")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_montr")
+
+[node name="Sangue" unique_id=933862229 instance=ExtResource("1_ieros")]
+
+[node name="Sangue" parent="." index="0" unique_id=981617347]
+mesh = SubResource("ArrayMesh_7ikbv")

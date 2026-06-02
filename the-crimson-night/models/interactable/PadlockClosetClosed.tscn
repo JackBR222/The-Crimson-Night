@@ -8,8 +8,7 @@ resource_name = "Armario Cadeado"
 vertex_color_use_as_albedo = true
 albedo_texture = ExtResource("2_oaexr")
 emission_enabled = true
-emission = Color(1, 1, 1, 1)
-emission_energy_multiplier = 0.0
+emission_texture = ExtResource("2_oaexr")
 texture_filter = 0
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_7osdy"]
@@ -49,6 +48,6 @@ shadow_mesh = SubResource("ArrayMesh_7osdy")
 [node name="PadlockClosetClosed" unique_id=823545758 instance=ExtResource("1_makw5")]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 
-[node name="Porta" parent="." index="0" unique_id=179346024]
+[node name="Porta" parent="." index="0" unique_id=1472318304]
 transform = Transform3D(2.6166248, 0, 0, 0, -1.143752e-07, 24.616621, 0, -2.6165996, -1.0760267e-06, 1.1973169, 3.2506592, -0.09114153)
 mesh = SubResource("ArrayMesh_um1jd")

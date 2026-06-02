@@ -1,0 +1,22 @@
+if {player_item_type} == "Fuse":
+	set {multi_key_door} += 1.0
+	[signal arg="consume:Fuse"]
+if {player_item_type} == "Fuse2":
+	set {multi_key_door} += 1.0
+	[signal arg="consume:Fuse2"]
+if {multi_key_door} == 2.0:
+	Figner: Consegui!!
+	set {fusebox_done} = true
+	[signal arg="change_model_1"]
+	[wait time="2.0"]
+	[signal arg="open_gate"]
+	[signal arg="light_on:park_lights"]
+	[signal arg="player_noise"]
+elif {multi_key_door} == 1.0:
+	Figner: Falta mais um [color=yellow]fusível[/color]
+	[signal arg="change_model_3"]
+elif {multi_key_door} == 0.0:
+	Figner: Preciso achar dois [color=yellow]fusível[/color] para colocar aqui.
+else:
+	if {fusebox_done} == true:
+		Figner: A caixa de fúsiveis está funcionando.

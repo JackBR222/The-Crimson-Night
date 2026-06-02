@@ -1,125 +1,92 @@
 extends Node3D
 
-@export var open_scene: PackedScene  # Prefab do portão aberto
+@export var open_scene: PackedScene
 
-# CÂMERA CINEMATIC
-@export var use_open_camera: bool = false
-@export var open_camera_time: float = 2.5
+@export var use_open_camera := false
+@export var open_camera_time := 1.5
 
 @onready var open_camera: Camera3D = $OpenCamera
 @onready var anim_player: AnimationPlayer = $AnimationPlayer
-@onready var player = get_tree().current_scene.get_node("Player/Player")
 @onready var open_sfx: AudioStreamPlayer3D = $OpenGateSound
+@onready var player = get_tree().current_scene.get_node("Player/Player")
 
-var is_opening: bool = false
-var is_open: bool = false
+const OPEN_ANIM := "Armature|OPEN GATE_001"
 
+var is_opening := false
+var is_open := false
 
-func _ready():
+func _ready() -> void:
 	_set_closed_pose()
+
 	Dialogic.signal_event.connect(_on_dialogic_signal)
 
-	# garante que a câmera não inicia ativa
 	if open_camera:
 		open_camera.current = false
-
-	#await get_tree().create_timer(1.0).timeout
-	#open_gate()
-
-
-# FUNÇÕES EXTERNAS
-func open_gate():
-	if is_open or is_opening:
-		return
-
-	is_opening = true
-	
-	# SOM DE ABERTURA
-	if open_sfx:
-		open_sfx.play()
-
-	# CÂMERA CINEMATIC
-	if use_open_camera and open_camera:
-
-		# congela durante a cinematic
-		freeze_game()
-
-		# ativa câmera antes da animação
-		open_camera.current = true
-
-	anim_player.play("Armature|OPEN GATE_001")
 
 	if not anim_player.animation_finished.is_connected(_on_anim_finished):
 		anim_player.animation_finished.connect(_on_anim_finished)
 
+func open_gate() -> void:
+	if is_open or is_opening:
+		return
 
-func force_close():
+	is_opening = true
+
+	if open_sfx:
+		open_sfx.play()
+
+	if use_open_camera and open_camera:
+		freeze_game()
+		open_camera.current = true
+
+	anim_player.play(OPEN_ANIM)
+
+func force_close() -> void:
 	is_opening = false
 	is_open = false
+
 	_set_closed_pose()
 
-
-# CONTROLE DO JOGO
 func freeze_game() -> void:
-
-	# congela inimigos
-	get_tree().call_group(
-		"enemies",
-		"set_process_mode",
-		Node.PROCESS_MODE_DISABLED
-	)
-
-	# congela player
-	if player:
-		player.set_process_mode(Node.PROCESS_MODE_DISABLED)
-
+	_set_game_process_mode(Node.PROCESS_MODE_DISABLED)
 
 func unfreeze_game() -> void:
+	_set_game_process_mode(Node.PROCESS_MODE_INHERIT)
 
-	# descongela inimigos
+func _set_game_process_mode(mode: ProcessMode) -> void:
 	get_tree().call_group(
 		"enemies",
 		"set_process_mode",
-		Node.PROCESS_MODE_INHERIT
+		mode
 	)
 
-	# descongela player
 	if player:
-		player.set_process_mode(Node.PROCESS_MODE_INHERIT)
+		player.set_process_mode(mode)
 
-
-# INTERNO
-func _set_closed_pose():
+func _set_closed_pose() -> void:
 	anim_player.stop()
+	anim_player.play(OPEN_ANIM)
 
-	# garante que o primeiro frame da animação seja aplicado e “travado”
-	anim_player.play("Armature|OPEN GATE_001")
 	anim_player.seek(0.0, true)
 	anim_player.stop()
 
-	# reforça que o pose do frame 0 fica aplicado
 	anim_player.advance(0)
 
-
-func _on_anim_finished(anim_name: StringName):
-	if anim_name == "Armature|OPEN GATE_001":
+func _on_anim_finished(anim_name: StringName) -> void:
+	if anim_name == OPEN_ANIM:
 		_finish_opening()
 
-
-func _finish_opening():
+func _finish_opening() -> void:
 	is_opening = false
 	is_open = true
 
-	# espera o tempo cinematic
 	if use_open_camera and open_camera:
-
 		await get_tree().create_timer(open_camera_time).timeout
 
 		open_camera.current = false
 
 		unfreeze_game()
 
-	# troca pelo prefab aberto
 	if open_scene:
 		var opened_gate = open_scene.instantiate()
 
@@ -129,8 +96,6 @@ func _finish_opening():
 
 	queue_free()
 
-
 func _on_dialogic_signal(argument: String) -> void:
-
 	if argument == "open_gate":
 		open_gate()

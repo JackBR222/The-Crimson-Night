@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://rx6k5s0wfy7f"]
+
+[ext_resource type="PackedScene" uid="uid://c34ywg53avgbr" path="res://models/map/Tree.tscn" id="1_avsvi"]
+
+[node name="TREE" type="Node3D" unique_id=1031677865]
+
+[node name="Tree1" parent="." unique_id=1102581181 instance=ExtResource("1_avsvi")]
+transform = Transform3D(0.755, 0, 0, 0, 0.755, 0, 0, 0, 0.755, -81, 0.39999998, -42)
+
+[node name="Tree2" parent="." unique_id=811436698 instance=ExtResource("1_avsvi")]
+transform = Transform3D(0.755, 0, 0, 0, 0.755, 0, 0, 0, 0.755, -67, 0.39999998, -16)
+
+[node name="Tree3" parent="." unique_id=108281194 instance=ExtResource("1_avsvi")]
+transform = Transform3D(0.755, 0, 0, 0, 0.755, 0, 0, 0, 0.755, -12, 0.39999998, -28)
+
+[node name="Tree4" parent="." unique_id=1741067848 instance=ExtResource("1_avsvi")]
+transform = Transform3D(0.755, 0, 0, 0, 0.755, 0, 0, 0, 0.755, -13, 0.39999998, 41)
+
+[node name="Tree5" parent="." unique_id=870346329 instance=ExtResource("1_avsvi")]
+transform = Transform3D(0.755, 0, 0, 0, 0.755, 0, 0, 0, 0.755, -28, 0.39999998, 57)
+
+[node name="Tree6" parent="." unique_id=671861588 instance=ExtResource("1_avsvi")]
+transform = Transform3D(0.755, 0, 0, 0, 0.755, 0, 0, 0, 0.755, -18, 0.39999998, 67)
+
+[node name="Tree7" parent="." unique_id=769414113 instance=ExtResource("1_avsvi")]
+transform = Transform3D(0.755, 0, 0, 0, 0.755, 0, 0, 0, 0.755, -83, 0.39999998, 84)
+
+[node name="Tree8" parent="." unique_id=513472016 instance=ExtResource("1_avsvi")]
+transform = Transform3D(0.755, 0, 0, 0, 0.755, 0, 0, 0, 0.755, -68, 0.39999998, 105)
+
+[node name="Tree9" parent="." unique_id=12730251 instance=ExtResource("1_avsvi")]
+transform = Transform3D(0.755, 0, 0, 0, 0.755, 0, 0, 0, 0.755, -82, 0.39999998, 99)

@@ -3,9 +3,14 @@ extends AudioStreamPlayer3D
 @export var enemy: CharacterBody3D
 @onready var raycast: RayCast3D = $RayCast3D
 
+const STEP_SOUNDS := {
+	"grass": preload("res://audio/sounds/footstep_grass.mp3"),
+	"default": preload("res://audio/sounds/footstep_concrete.mp3")
+}
+
 var anim: AnimationPlayer
-var last_anim_position: float = 0.0
-var forced_stopped: bool = false
+var last_anim_position := 0.0
+var forced_stopped := false
 
 
 func _ready() -> void:
@@ -17,101 +22,56 @@ func _ready() -> void:
 
 
 func _physics_process(_delta: float) -> void:
-	if enemy == null or forced_stopped or anim == null:
+	if forced_stopped or enemy == null or anim == null or not enemy.is_on_floor():
 		return
 
-	if not enemy.is_on_floor():
+	if enemy.velocity.length() < 0.1:
+		_stop_if_needed()
 		return
 
-	var speed := enemy.velocity.length()
+	var current_pos := anim.current_animation_position
 
-	# parado
-	if speed < 0.1:
-		if is_playing():
-			stop()
-		return
-
-	# detecta loop da animação (voltou pro início)
-	var current_pos = anim.current_animation_position
-
-	if current_pos < last_anim_position:
-		# aqui é o "último frame" → loopou
-		if _is_movement_state():
-			play_step()
+	if current_pos < last_anim_position and _is_moving():
+		_play_step()
 
 	last_anim_position = current_pos
 
 
-# DEFINE SE DEVE TOCAR PASSO
-func _is_movement_state() -> bool:
-	var state := get_enemy_state()
-
-	return state in ["run", "chase", "walk", "patrol", "investigate", "return"]
+# MOVIMENTO (simplificado)
+func _is_moving() -> bool:
+	return enemy.velocity.length() > 0.2
 
 
-# ESTADO DO INIMIGO
-func get_enemy_state() -> String:
-	if enemy == null:
-		return "idle"
-
-	var s = enemy.get("state")
-
-	if s != null:
-		match int(s):
-			0: return "idle"
-			1: return "patrol"
-			2: return "investigate"
-			3: return "chase"
-			4: return "attack"
-			5: return "return"
-
-	var speed := enemy.velocity.length()
-
-	if speed > 2.5:
-		return "run"
-	elif speed > 0.2:
-		return "walk"
-
-	return "idle"
-
-
-# SOM DOS PASSOS
-func play_step() -> void:
-	var floor_type := get_floor_type()
-
-	var sound: AudioStream
-
-	if floor_type == "grass":
-		sound = preload("res://audio/sounds/footstep_grass.mp3")
-	else:
-		sound = preload("res://audio/sounds/footstep_concrete.mp3")
-
-	stream = sound
-	pitch_scale = randf_range(0.85, 1.05)
+# SOM DO PASSO
+func _play_step() -> void:
+	stream = STEP_SOUNDS[_get_floor_type()]
+	pitch_scale = 0.5
 	play()
 
 
-func get_floor_type() -> String:
+func _get_floor_type() -> String:
 	if raycast == null:
 		return "default"
 
 	raycast.force_raycast_update()
 
 	if raycast.is_colliding():
-		var collider = raycast.get_collider()
+		var c = raycast.get_collider()
 
-		if collider and collider.has_meta("floor_type"):
-			return str(collider.get_meta("floor_type"))
-
-		if collider and collider.is_in_group("grass"):
-			return "grass"
-		elif collider and collider.is_in_group("concrete"):
-			return "concrete"
+		if c:
+			if c.has_meta("floor_type"):
+				return str(c.get_meta("floor_type"))
+			if c.is_in_group("grass"):
+				return "grass"
 
 	return "default"
 
 
-# CONTROLE EXTERNO
+func _stop_if_needed() -> void:
+	if is_playing():
+		stop()
+
+
 func force_stop_steps() -> void:
 	stop()
 	forced_stopped = true

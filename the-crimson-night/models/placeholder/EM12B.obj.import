@@ -1,0 +1,25 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://conspdr1ldafj"
+path="res://.godot/imported/EM12B.obj-96dc38ddf80a1ba8aacdc13d56efe85f.mesh"
+
+[deps]
+
+files=["res://.godot/imported/EM12B.obj-96dc38ddf80a1ba8aacdc13d56efe85f.mesh"]
+
+source_file="res://models/placeholder/EM12B.obj"
+dest_files=["res://.godot/imported/EM12B.obj-96dc38ddf80a1ba8aacdc13d56efe85f.mesh", "res://.godot/imported/EM12B.obj-96dc38ddf80a1ba8aacdc13d56efe85f.mesh"]
+
+[params]
+
+generate_tangents=true
+generate_lods=true
+generate_shadow_mesh=true
+generate_lightmap_uv2=false
+generate_lightmap_uv2_texel_size=0.2
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+force_disable_mesh_compression=false

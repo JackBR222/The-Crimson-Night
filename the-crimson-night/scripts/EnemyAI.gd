@@ -4,218 +4,209 @@ extends CharacterBody3D
 @onready var anim: AnimationPlayer = $AnimationPlayer
 @onready var vision_ray: RayCast3D = $VisionRay
 @onready var presence_area: Area3D = $PresenceArea
-@onready var target = null
 @onready var enemy_fade: ColorRect = $CanvasLayer/EnemyFade
+
 @onready var bgm_player: AudioStreamPlayer = get_tree().current_scene.get_node("MusicPlayer")
 @onready var chase_player: AudioStreamPlayer = get_tree().current_scene.get_node("MusicPlayerChase")
 
+@onready var target = get_tree().current_scene.get_node("Player/Player")
+
+# Rotas de patrulha
 @export var patrol_points_1: Array[Node3D] = []
 @export var patrol_points_2: Array[Node3D] = []
 @export var patrol_points_3: Array[Node3D] = []
 @export var patrol_points_4: Array[Node3D] = []
 @export var patrol_points_5: Array[Node3D] = []
+@export var patrol_points_6: Array[Node3D] = []
+@export var patrol_points_7: Array[Node3D] = []
+@export var patrol_points_8: Array[Node3D] = []
 
-@export var speed_walk: float = 1.7
-@export var speed_run: float = 3.0
+# Movimento
+@export var speed_walk := 4.5
+@export var speed_run := 7.2
 
-# NOVO: controle da velocidade da animação
-@export var walk_anim_speed: float = 1.0
-@export var run_anim_speed: float = 1.8
+# Velocidade da animação
+@export var walk_anim_speed := 1.0
+@export var run_anim_speed := 1.8
 
-@export var attack_range: float = 2.0
-@export var investigate_wait_time: float = 4.0
-@export var patrol_wait_time: float = 3.0
-@export var update_interval: float = 0.2
-@export var attack_duration: float = 1.5
-@export var patrol_reach_distance: float = 0.35
+# Distâncias e tempos
+@export var attack_range := 2.0
+@export var patrol_reach_distance := 0.35
+@export var investigate_reach_distance := 3.0
 
-# TOLERÂNCIA DE DISTÂNCIA DA POSIÇÃO DE INVESTIGAÇÃO
-@export var investigate_reach_distance: float = 3
+@export var patrol_wait_time := 3.0
+@export var investigate_wait_time := 4.0
+@export var max_investigate_duration := 6.0
 
-@export var fade_time: float = 1.2
+@export var update_interval := 0.2
+@export var fade_time := 1.2
 
-const VIEW_ANGLE: float = 190.0
-const SMOOTHING_FACTOR = 0.2
+# Visão
+@export var base_ray_z := -24.0
+@export var flashlight_multiplier := 2.0
 
-enum State { IDLE, PATROL, INVESTIGATE, CHASE, ATTACK, RETURN }
+const VIEW_ANGLE := 190.0
+const SMOOTHING_FACTOR := 0.2
+
+enum State {
+	IDLE,
+	PATROL,
+	INVESTIGATE,
+	CHASE,
+	ATTACK,
+	RETURN
+}
+
 var state: State = State.IDLE
 
 var patrol_index := 0
 var patrol_timer := 0.0
+
 var investigate_timer := 0.0
+var investigate_elapsed := 0.0
 var investigate_position: Vector3
-var return_position: Vector3
+
 var update_timer := 0.0
 var is_attacking := false
-var reached_point := false
 
 var current_patrol_group: Array[Node3D] = []
-var current_patrol_group_number: int = 1
 
-var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
-var music_transitioning := false
-var fade_id := 0
-
-# SISTEMA DE STEALTH DO JOGADOR
-var player_is_hidden: bool = false
+var player_is_hidden := false
 var last_known_player_position: Vector3
 
+var flashlight_ref: Node
+var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 
-# UTILITÁRIO DE DISTÂNCIA HORIZONTAL
-func _flat_distance(a: Vector3, b: Vector3) -> float:
-	a.y = 0
-	b.y = 0
-	return a.distance_to(b)
+var patrol_groups := {}
 
-
-# BUSCA AUTOMÁTICA DO PLAYER
-func _find_player() -> Node3D:
-	return get_tree().current_scene.get_node("Player/Player")
-
-
-# CARREGA ROTAS AUTOMATICAMENTE
-func _load_patrol_routes() -> void:
-	var routes_root = get_tree().current_scene.get_node("PatrolRoutes")
-
-	if not routes_root:
-		print("PatrolRoutes não encontrado na cena!")
-		return
-
-	for i in range(1, 6):
-		var route_node = routes_root.get_node_or_null("Route" + str(i))
-		if route_node:
-			var points: Array[Node3D] = []
-			for child in route_node.get_children():
-				if child is Node3D:
-					points.append(child)
-
-			match i:
-				1: patrol_points_1 = points
-				2: patrol_points_2 = points
-				3: patrol_points_3 = points
-				4: patrol_points_4 = points
-				5: patrol_points_5 = points
-
-
-# INICIALIZAÇÃO DO INIMIGO
 func _ready() -> void:
-	target = _find_player()
+	_find_flashlight()
 	_load_patrol_routes()
 
-	if patrol_points_1.is_empty():
-		print("Aviso: rota 1 vazia ou inexistente")
+	add_to_group("enemies")
 
-	_set_patrol_group(patrol_points_1, 1)
-	_enter_state(State.IDLE if current_patrol_group.is_empty() else State.PATROL)
+	patrol_groups = {
+		1: patrol_points_1,
+		2: patrol_points_2,
+		3: patrol_points_3,
+		4: patrol_points_4,
+		5: patrol_points_5,
+		6: patrol_points_6,
+		7: patrol_points_7,
+		8: patrol_points_8
+	}
+
+	_set_patrol_group(patrol_points_1)
+
+	_enter_state(
+		State.IDLE if current_patrol_group.is_empty()
+		else State.PATROL
+	)
 
 	Dialogic.signal_event.connect(_on_dialogic_signal)
 
-
-
-# LOOP PRINCIPAL DE FÍSICA
 func _physics_process(delta: float) -> void:
 	_update_path(delta)
 
-	_check_hidden_interrupt()
+	# Perdeu visão do player escondido
+	if state == State.CHASE and player_is_hidden:
+		_start_investigation(last_known_player_position)
 
-	if target and not player_is_hidden and _can_see_player() and state not in [State.CHASE, State.ATTACK]:
+	# Detectou jogador
+	elif _can_start_chase():
 		_enter_state(State.CHASE)
 
 	match state:
-		State.PATROL: _state_patrol(delta)
-		State.INVESTIGATE: _state_investigate(delta)
-		State.CHASE: _state_chase()
-		State.ATTACK: _state_attack()
-		State.RETURN: _state_return()
+		State.PATROL:
+			_state_patrol(delta)
+
+		State.INVESTIGATE:
+			_state_investigate(delta)
+
+		State.CHASE:
+			_state_chase()
+
+		State.ATTACK:
+			_state_attack()
+
+		State.RETURN:
+			_state_return()
 
 	_looking()
+	_update_vision_ray()
 	_apply_gravity(delta)
+
 	move_and_slide()
 
-
-# INTERROMPER CHASE SE ESCONDIDO
-func _check_hidden_interrupt() -> void:
-	if state == State.CHASE and player_is_hidden:
-		investigate_position = last_known_player_position
-		_enter_state(State.INVESTIGATE)
-
-
-# ESTADO: PATRULHA
+# ESTADOS
 func _state_patrol(delta: float) -> void:
 	if current_patrol_group.is_empty():
 		return
 
-	var target_point = current_patrol_group[patrol_index].global_position
-	var dist = _flat_distance(global_position, target_point)
+	var point = current_patrol_group[patrol_index].global_position
 
-	if dist <= patrol_reach_distance:
-		global_position.x = target_point.x
-		global_position.z = target_point.z
-
-		patrol_timer -= delta
-
-		velocity.x = lerp(velocity.x, 0.0, 0.2)
-		velocity.z = lerp(velocity.z, 0.0, 0.2)
-
-		if patrol_timer <= 0.0:
-			_go_to_next_patrol_point()
-			patrol_timer = patrol_wait_time
-			_update_agent_target()
-	else:
+	if _flat_distance(global_position, point) > patrol_reach_distance:
 		_move(speed_walk)
+		return
 
+	global_position.x = point.x
+	global_position.z = point.z
 
-# ESTADO: INVESTIGAÇÃO
+	_slow_stop(0.2)
+
+	patrol_timer -= delta
+
+	if patrol_timer <= 0:
+		patrol_index = (patrol_index + 1) % current_patrol_group.size()
+		patrol_timer = patrol_wait_time
+
+		_update_agent_target()
+
 func _state_investigate(delta: float) -> void:
-	var dist = _flat_distance(global_position, investigate_position)
+	investigate_elapsed += delta
 
-	if dist > investigate_reach_distance and not agent.is_navigation_finished():
+	if investigate_elapsed >= max_investigate_duration:
+		_enter_state(State.RETURN)
+		return
+
+	if _flat_distance(global_position, investigate_position) > investigate_reach_distance:
 		_move(speed_run)
-		investigate_timer = investigate_wait_time
-	else:
-		velocity.x = lerp(velocity.x, 0.0, 0.25)
-		velocity.z = lerp(velocity.z, 0.0, 0.25)
+		return
 
-		investigate_timer -= delta
+	_slow_stop(0.25)
 
-		if investigate_timer <= 0.0:
-			_enter_state(State.RETURN)
+	investigate_timer -= delta
 
+	if investigate_timer <= 0:
+		_enter_state(State.RETURN)
 
-# ESTADO: PERSEGUIÇÃO
 func _state_chase() -> void:
 	if not target:
 		_enter_state(State.RETURN)
 		return
 
-	if player_is_hidden:
-		investigate_position = last_known_player_position
-		_enter_state(State.INVESTIGATE)
+	if not _can_see_player():
+		_start_investigation(last_known_player_position)
 		return
 
-	if _can_see_player():
-		last_known_player_position = target.global_position
-		agent.set_target_position(last_known_player_position)
-	else:
-		investigate_position = last_known_player_position
-		_enter_state(State.INVESTIGATE)
-		return
+	last_known_player_position = target.global_position
+
+	agent.set_target_position(last_known_player_position)
 
 	_move(speed_run)
 
 	if _flat_distance(global_position, target.global_position) < attack_range:
 		_enter_state(State.ATTACK)
 
-
-# ESTADO: ATAQUE
 func _state_attack() -> void:
 	if is_attacking:
 		return
 
 	is_attacking = true
+
 	velocity = Vector3.ZERO
 
-	if target and target.has_method("freeze_input"):
+	if target.has_method("freeze_input"):
 		target.freeze_input()
 
 	await get_tree().create_timer(0.2).timeout
@@ -226,69 +217,166 @@ func _state_attack() -> void:
 
 	get_tree().change_scene_to_file("res://scenes/GameOver.tscn")
 
-
-# ESTADO: RETORNAR
 func _state_return() -> void:
 	if current_patrol_group.is_empty():
 		return
 
-	var target_point = current_patrol_group[patrol_index].global_position
+	var target_pos = current_patrol_group[patrol_index].global_position
 
-	if _flat_distance(global_position, target_point) > patrol_reach_distance:
+	if _flat_distance(global_position, target_pos) > patrol_reach_distance:
 		_move(speed_walk)
-	else:
-		velocity.x = lerp(velocity.x, 0.0, 0.25)
-		velocity.z = lerp(velocity.z, 0.0, 0.25)
+		return
 
-		if abs(velocity.x) < 0.05 and abs(velocity.z) < 0.05:
-			_enter_state(State.PATROL)
+	_slow_stop(0.25)
 
+	if abs(velocity.x) < 0.05 and abs(velocity.z) < 0.05:
+		anim.stop()
+		_enter_state(State.PATROL)
 
-# MOVIMENTO GERAL
+# MOVIMENTO
 func _move(speed: float) -> void:
 	if agent.is_navigation_finished():
-		match state:
-			State.CHASE:
-				if last_known_player_position != Vector3.ZERO:
-					agent.set_target_position(last_known_player_position)
-
-			State.INVESTIGATE:
-				agent.set_target_position(investigate_position)
-
-			_:
-				_update_agent_target()
+		return
 
 	var next_pos = agent.get_next_path_position()
-	_walk_to(next_pos, speed)
 
+	if next_pos != Vector3.ZERO:
+		_walk_to(next_pos, speed)
 
 func _walk_to(next_pos: Vector3, speed: float) -> void:
 	anim.play("Move")
 
-	# NOVO: controla velocidade da animação
-	if speed == speed_run:
-		anim.speed_scale = run_anim_speed
-	else:
-		anim.speed_scale = walk_anim_speed
+	anim.speed_scale = (
+		run_anim_speed if speed == speed_run
+		else walk_anim_speed
+	)
 
 	var dir = next_pos - global_position
+
 	dir.y = 0
 
 	if dir.length() == 0:
-		velocity.x = lerp(velocity.x, 0.0, 0.2)
-		velocity.z = lerp(velocity.z, 0.0, 0.2)
+		_slow_stop(0.2)
 		return
 
 	dir = dir.normalized()
 
-	var forward = -global_transform.basis.z
-	var smooth_dir = forward.slerp(dir, 0.15).normalized()
+	var smooth_dir = (
+		-global_transform.basis.z
+	).slerp(dir, 0.15).normalized()
 
 	look_at(global_position + smooth_dir, Vector3.UP)
 
 	velocity.x = dir.x * speed
 	velocity.z = dir.z * speed
 
+func _slow_stop(weight: float) -> void:
+	velocity.x = lerp(velocity.x, 0.0, weight)
+	velocity.z = lerp(velocity.z, 0.0, weight)
+
+func _apply_gravity(delta: float) -> void:
+	velocity.y = (
+		0.0 if is_on_floor()
+		else velocity.y - gravity * delta
+	)
+
+# IA / VISÃO
+func _can_start_chase() -> bool:
+	return (
+		target
+		and not player_is_hidden
+		and _can_see_player()
+		and state not in [State.CHASE, State.ATTACK]
+	)
+
+func _can_see_player() -> bool:
+	return (
+		target
+		and not player_is_hidden
+		and (
+			vision_ray.is_colliding()
+			and vision_ray.get_collider() == target
+			or presence_area.get_overlapping_bodies().has(target)
+		)
+	)
+
+func _looking() -> void:
+	if not target:
+		return
+
+	var to_player = (
+		target.global_position - global_position
+	).normalized()
+
+	var angle = rad_to_deg(
+		acos(
+			clamp(
+				(-global_transform.basis.z).dot(to_player),
+				-1.0,
+				1.0
+			)
+		)
+	)
+
+	if angle > VIEW_ANGLE * 0.39:
+		return
+
+	var new_dir = (
+		-vision_ray.global_transform.basis.z
+	).slerp(to_player, SMOOTHING_FACTOR).normalized()
+
+	vision_ray.look_at(
+		vision_ray.global_transform.origin + new_dir,
+		Vector3.UP
+	)
+
+func _update_vision_ray() -> void:
+	if not vision_ray:
+		return
+
+	vision_ray.target_position.z = (
+		base_ray_z * flashlight_multiplier
+		if flashlight_ref and flashlight_ref.is_on
+		else base_ray_z
+	)
+
+# NAVEGAÇÃO
+func _update_path(delta: float) -> void:
+	update_timer -= delta
+
+	if update_timer > 0:
+		return
+
+	match state:
+		State.CHASE:
+			if _can_see_player():
+				last_known_player_position = target.global_position
+				agent.set_target_position(last_known_player_position)
+
+		State.INVESTIGATE:
+			agent.set_target_position(investigate_position)
+
+		_:
+			_update_agent_target()
+
+	update_timer = update_interval
+
+func _update_agent_target() -> void:
+	if current_patrol_group.is_empty():
+		return
+
+	match state:
+		State.PATROL, State.RETURN:
+			agent.set_target_position(
+				current_patrol_group[patrol_index].global_position
+			)
+
+		State.CHASE:
+			if not player_is_hidden:
+				agent.set_target_position(last_known_player_position)
+
+		State.INVESTIGATE:
+			agent.set_target_position(investigate_position)
 
 # CONTROLE DE ESTADO
 func _enter_state(new_state: State) -> void:
@@ -300,20 +388,20 @@ func _enter_state(new_state: State) -> void:
 	match state:
 		State.PATROL:
 			patrol_timer = patrol_wait_time
-			_update_agent_target()
 			_switch_to_normal_music()
 
 		State.INVESTIGATE:
 			investigate_timer = investigate_wait_time
+			investigate_elapsed = 0.0
+
 			agent.set_target_position(investigate_position)
+
 			_switch_to_chase_music()
 
 		State.CHASE:
-			return_position = global_position
+			last_known_player_position = target.global_position
 
-			if target:
-				last_known_player_position = target.global_position
-				agent.set_target_position(last_known_player_position)
+			agent.set_target_position(last_known_player_position)
 
 			_switch_to_chase_music()
 
@@ -321,101 +409,46 @@ func _enter_state(new_state: State) -> void:
 			is_attacking = false
 
 		State.RETURN:
-			if current_patrol_group.size() > 0:
-				agent.set_target_position(current_patrol_group[patrol_index].global_position)
-
 			_switch_to_normal_music()
 
 	_update_agent_target()
 
+func _start_investigation(pos: Vector3) -> void:
+	investigate_position = pos
+	_enter_state(State.INVESTIGATE)
 
-# NAVEGAÇÃO
-func _update_agent_target() -> void:
-	if current_patrol_group.is_empty() and state != State.CHASE and state != State.INVESTIGATE:
+# SOM
+func _play_from_start(player: AudioStreamPlayer) -> void:
+	player.stop()
+	player.play(0.0)
+
+func _switch_to_chase_music() -> void:
+	if chase_player.playing:
 		return
 
-	match state:
-		State.PATROL:
-			if current_patrol_group.size() > 0:
-				agent.set_target_position(current_patrol_group[patrol_index].global_position)
+	if bgm_player.playing:
+		bgm_player.stop()
 
-		State.CHASE:
-			if not player_is_hidden:
-				agent.set_target_position(last_known_player_position)
+	_play_from_start(chase_player)
 
-		State.INVESTIGATE:
-			agent.set_target_position(investigate_position)
-
-		State.RETURN:
-			if current_patrol_group.size() > 0:
-				agent.set_target_position(current_patrol_group[patrol_index].global_position)
-
-
-# ATUALIZAÇÃO DE CAMINHO
-func _update_path(delta: float) -> void:
-	update_timer -= delta
-
-	if update_timer <= 0.0:
-		match state:
-			State.CHASE:
-				if _can_see_player():
-					last_known_player_position = target.global_position
-					agent.set_target_position(last_known_player_position)
-
-			State.INVESTIGATE:
-				agent.set_target_position(investigate_position)
-
-			_:
-				_update_agent_target()
-
-		update_timer = update_interval
-
-
-# DETECÇÃO DO JOGADOR
-func _can_see_player() -> bool:
-	if not target or player_is_hidden:
-		return false
-
-	return (
-		(vision_ray.is_colliding() and vision_ray.get_collider() == target) or
-		presence_area.get_overlapping_bodies().has(target)
-	)
-
-
-# SISTEMA DE STEALTH
-func set_player_hidden(value: bool) -> void:
-	player_is_hidden = value
-
-	if value:
-		last_known_player_position = target.global_position
-
-		if state == State.CHASE:
-			investigate_position = last_known_player_position
-			_enter_state(State.INVESTIGATE)
-
-
-# SISTEMA DE SOM
-func hear_noise(pos: Vector3) -> void:
-	if state not in [State.CHASE, State.ATTACK]:
-		investigate_position = pos
-		_enter_state(State.INVESTIGATE)
-
-
-# PRÓXIMO PONTO DE PATRULHA
-func _go_to_next_patrol_point() -> void:
-	if current_patrol_group.is_empty():
+func _switch_to_normal_music() -> void:
+	if bgm_player.playing:
 		return
 
-	patrol_index = (patrol_index + 1) % current_patrol_group.size()
+	if chase_player.playing:
+		chase_player.stop()
 
+	_play_from_start(bgm_player)
 
-# DEFINIÇÃO DE GRUPO DE PATRULHA
-func _set_patrol_group(group: Array[Node3D], group_number: int) -> void:
+	await get_tree().create_timer(fade_time).timeout
+
+	chase_player.stop()
+
+# PATRULHA
+func _set_patrol_group(group: Array[Node3D]) -> void:
 	current_patrol_group = group
-	current_patrol_group_number = group_number
 
 	patrol_index = 0
-	reached_point = false
 
 	velocity = Vector3.ZERO
 	update_timer = 0.0
@@ -423,99 +456,66 @@ func _set_patrol_group(group: Array[Node3D], group_number: int) -> void:
 	if state in [State.CHASE, State.INVESTIGATE, State.ATTACK]:
 		return
 
-	if current_patrol_group.size() > 0:
-		agent.set_target_position(current_patrol_group[0].global_position)
-		agent.velocity = Vector3.ZERO
-
-	if state == State.PATROL:
-		_enter_state(State.PATROL)
-
+	if not current_patrol_group.is_empty():
+		agent.set_target_position(
+			current_patrol_group[0].global_position
+		)
 
 func set_patrol_group(group_number: int) -> void:
-	var new_group: Array[Node3D]
+	if patrol_groups.has(group_number):
+		_set_patrol_group(patrol_groups[group_number])
 
-	match group_number:
-		1: new_group = patrol_points_1
-		2: new_group = patrol_points_2
-		3: new_group = patrol_points_3
-		4: new_group = patrol_points_4
-		5: new_group = patrol_points_5
-		_: return
+func _load_patrol_routes() -> void:
+	var routes_root = get_tree().current_scene.get_node("PatrolRoutes")
 
-	_set_patrol_group(new_group, group_number)
-
-
-# SISTEMA DE VISÃO
-func _looking() -> void:
-	if not target:
+	if not routes_root:
 		return
 
-	var to_player = (target.global_position - global_position).normalized()
-	var forward = -global_transform.basis.z
+	for i in range(1, 9):
+		var route = routes_root.get_node_or_null("Route" + str(i))
 
-	var angle = rad_to_deg(acos(clamp(forward.dot(to_player), -1.0, 1.0)))
-	if angle > VIEW_ANGLE * 0.5:
-		return
+		if not route:
+			continue
 
-	var ray_forward = -vision_ray.global_transform.basis.z
-	var new_dir = ray_forward.slerp(to_player, SMOOTHING_FACTOR).normalized()
+		var points: Array[Node3D] = []
 
-	vision_ray.look_at(vision_ray.global_transform.origin + new_dir, Vector3.UP)
+		for child in route.get_children():
+			if child is Node3D:
+				points.append(child)
 
+		set("patrol_points_" + str(i), points)
 
-# GRAVIDADE
-func _apply_gravity(delta: float) -> void:
-	if not is_on_floor():
-		velocity.y -= gravity * delta
-	else:
-		velocity.y = 0.0
+# UTILITÁRIOS
+func _find_flashlight() -> void:
+	var nodes = get_tree().get_nodes_in_group("flashlight")
 
+	flashlight_ref = (
+		null if nodes.is_empty()
+		else nodes[0]
+	)
 
-# SISTEMA DE MÚSICA
+func _flat_distance(a: Vector3, b: Vector3) -> float:
+	a.y = 0
+	b.y = 0
 
-func _play_from_start(player: AudioStreamPlayer) -> void:
-	player.stop()
-	player.play(0.0)
+	return a.distance_to(b)
 
+func set_player_hidden(value: bool) -> void:
+	player_is_hidden = value
 
-# TROCA DIRETA PARA MÚSICA DE CHASE
-func _switch_to_chase_music() -> void:
+	if value and state == State.CHASE:
+		_start_investigation(last_known_player_position)
 
-	# Se já estiver tocando a música de chase, não reinicia
-	if chase_player.playing:
-		return
+func set_last_known_position(pos: Vector3) -> void:
+	last_known_player_position = pos
 
-	# Para música normal
-	if bgm_player.playing:
-		bgm_player.stop()
+	if state == State.CHASE:
+		_start_investigation(pos)
 
-	# Inicia música de perseguição
-	_play_from_start(chase_player)
+func hear_noise(pos: Vector3) -> void:
+	if state not in [State.CHASE, State.ATTACK]:
+		_start_investigation(pos)
 
-
-# TROCA DIRETA PARA MÚSICA NORMAL
-func _switch_to_normal_music() -> void:
-
-	# Se música normal já estiver tocando, não reinicia
-	if bgm_player.playing:
-		return
-
-	# Para música de chase
-	if chase_player.playing:
-		chase_player.stop()
-
-	# Volta música normal
-	_play_from_start(bgm_player)
-	await get_tree().create_timer(fade_time).timeout
-
-	chase_player.stop()
-
-	music_transitioning = false
-
-# SINAIS DO DIALOGIC
 func _on_dialogic_signal(argument: String) -> void:
-
-	match argument:
-
-		"player_noise":
-			hear_noise(target.global_position)
+	if argument == "player_noise":
+		hear_noise(target.global_position)

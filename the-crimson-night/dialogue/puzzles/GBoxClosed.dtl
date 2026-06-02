@@ -1,0 +1,9 @@
+if {player_item_type} == "Wrench":
+	Figner: Abriu!
+	[signal arg="consume:Wrench"]
+	[signal arg="reveal:Fuse"]
+	[signal arg="change_timeline_2"]
+	[signal arg="change_model_2"]
+	Figner: É disso que eu preciso para ligar a energia.
+else:
+	Figner: Aqui deve ter um fusível, uma [color=yellow]ferramenta[/color] pode ajudar com o parafuso emperrado.

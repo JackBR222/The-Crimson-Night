@@ -1,0 +1,6 @@
+join Image center
+[wait_input]
+leave Image
+join Image (controller) center
+[wait_input]
+leave Image

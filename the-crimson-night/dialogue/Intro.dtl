@@ -20,8 +20,8 @@ Jorge: NÃO, PARECE UM BICHO ENORME!
 Figner: Jorge, fala comigo! O que tá acontecendo? Invadiram?
 audio "res://audio/sounds/walkie-talkie.mp3"
 [wait time="2.0"]
-[i]~A energia do parque cai de repente~[/i]
 [background fade="2.0" wait="true"]
+audio "res://audio/sounds/Energy_down.mp3"
 [wait time="1.0"]
 Figner: Jorge, alô? Qual a situação?
 Jorge: FIGNER, A GENTE PRECISA SAIR DESSE PARQUE AGORA! AQUELA COISA LÁ FORA TÁ MATANDO!

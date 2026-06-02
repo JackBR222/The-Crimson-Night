@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://byjvwunw4pfj"]
+
+[ext_resource type="Script" uid="uid://des72qjknog7u" path="res://scripts/global/DialogueTrigger.gd" id="1_644jk"]
+[ext_resource type="Texture2D" uid="uid://ctkdpouqpiah2" path="res://models/Paper_texture.png" id="2_8chsr"]
+[ext_resource type="PackedScene" uid="uid://b5hrby2w1bk4p" path="res://prefabs/InteractionIcon.tscn" id="3_lqe3l"]
+[ext_resource type="PackedScene" uid="uid://cfgvhilqj4lj6" path="res://prefabs/GlowPulse.tscn" id="4_gd1y5"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_h8o7d"]
+radius = 1.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tcch3"]
+cull_mode = 2
+albedo_color = Color(0.55215883, 0, 0.031703822, 1)
+albedo_texture = ExtResource("2_8chsr")
+roughness = 0.8
+emission_enabled = true
+emission = Color(0.4930629, 0.010694051, 9.62615e-08, 1)
+texture_filter = 0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_7eqxe"]
+material = SubResource("StandardMaterial3D_tcch3")
+
+[node name="FilePaper" type="StaticBody3D" unique_id=1958908163]
+transform = Transform3D(-4.371139e-08, -0.9659258, 0.25881907, 0, 0.25881907, 0.9659258, -1, 4.222196e-08, -1.1313341e-08, 0, 0, 0)
+collision_layer = 2
+script = ExtResource("1_644jk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=565203112]
+transform = Transform3D(1, 0, -7.727152e-14, 0, 1, -4.776682e-16, 0, -4.776714e-16, 1, 0, 0.010349274, 0.008666992)
+shape = SubResource("SphereShape3D_h8o7d")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1945507179]
+transform = Transform3D(0.39999998, -1.6888782e-08, -1.7559739e-08, -8.146503e-09, 0.10352763, -0.52353173, 1.9667405e-08, 0.38637033, 0.14027993, 0, 0, 0)
+mesh = SubResource("PlaneMesh_7eqxe")
+
+[node name="InteractionIcon" parent="." unique_id=1342255257 instance=ExtResource("3_lqe3l")]
+transform = Transform3D(3, 0, 3.5527137e-15, -4.2632564e-14, 3, 1.7881393e-07, 1.0658141e-14, -1.7881393e-07, 3, 0, 0.36233902, 1.3522949)
+
+[node name="GlowPulse" parent="." unique_id=924555723 instance=ExtResource("4_gd1y5")]

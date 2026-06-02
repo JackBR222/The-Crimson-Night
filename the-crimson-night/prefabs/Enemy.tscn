@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://c3lsvvvnai66p" path="res://scripts/EnemyAI.gd" id="1_pqsom"]
 [ext_resource type="Texture2D" uid="uid://dpxclh50up8cf" path="res://models/Perna_texture.png" id="2_duu5m"]
-[ext_resource type="Script" uid="uid://cqtr3kwn8vr7p" path="res://scripts/FadeController.gd" id="2_hgomy"]
+[ext_resource type="Script" uid="uid://cqtr3kwn8vr7p" path="res://scripts/ui/FadeController.gd" id="2_hgomy"]
 [ext_resource type="Shader" uid="uid://c2jh875a4nmd6" path="res://scripts/shaders/PS1 Model.gdshader" id="3_hgomy"]
 [ext_resource type="Script" uid="uid://ddy8rcujxemb5" path="res://scripts/EnemyFootsteps.gd" id="3_pqsom"]
 
@@ -187,17 +187,21 @@ _data = {
 }
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_mo45p"]
-radius = 12.0
+radius = 3.8956578
 
 [node name="Enemy" type="CharacterBody3D" unique_id=1963610167 groups=["enemies"]]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 0)
 script = ExtResource("1_pqsom")
-speed_walk = 5.0
-speed_run = 6.9
-attack_range = 2.5
-patrol_wait_time = 0.0
-investigate_reach_distance = 1.0
+speed_walk = 6.5
+speed_run = 7.35
+attack_range = 3.0
+investigate_reach_distance = 5.0
+patrol_wait_time = 0.2
+max_investigate_duration = 5.0
+update_interval = 2.0
 fade_time = 0.1
+base_ray_z = -25.0
+flashlight_multiplier = 2.5
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1892115294]
 
@@ -285,13 +289,24 @@ target_desired_distance = 1.5
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 target_position = Vector3(0, 0, -48)
 
-[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=1876285247]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+[node name="SpotLight3D" type="SpotLight3D" parent="." unique_id=1039186765]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.375756e-08, 0.6245239, -1.9161496)
 light_color = Color(1, 0, 0, 1)
 light_energy = 2.0
 light_indirect_energy = 2.0
 light_volumetric_fog_energy = 3.0
-omni_range = 3.0
+spot_range = 25.0
+spot_attenuation = -1.5
+spot_angle = 35.0
+
+[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=1876285247]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.97238684, 0)
+light_color = Color(1, 0, 0, 1)
+light_indirect_energy = 2.0
+light_volumetric_fog_energy = 3.0
+omni_range = 4.603674
+omni_attenuation = -3.0
+omni_shadow_mode = 0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2116658261]
 root_node = NodePath("../Perna Cabeluda")
@@ -301,16 +316,15 @@ libraries/ = SubResource("AnimationLibrary_bvc7t")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="PresenceArea" unique_id=1032293433]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.6226832e-07, 0, -6)
 shape = SubResource("SphereShape3D_mo45p")
 
 [node name="FootstepEnemy" type="AudioStreamPlayer3D" parent="." unique_id=17563526 node_paths=PackedStringArray("enemy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.004026532, 0)
-volume_db = 20.0
-unit_size = 8.5
-max_distance = 75.0
-bus = &"SFX"
-attenuation_filter_cutoff_hz = 4000.0
+volume_db = 80.0
+max_db = 6.0
+pitch_scale = 0.01
+max_distance = 100.0
+attenuation_filter_db = 0.0
 script = ExtResource("3_pqsom")
 enemy = NodePath("..")
 

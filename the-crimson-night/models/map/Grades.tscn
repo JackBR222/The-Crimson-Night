@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://crjewq671v0lq"]
+
+[ext_resource type="PackedScene" uid="uid://cyoy31lnvd1hi" path="res://models/map/Grade.tscn" id="1_8ucjr"]
+
+[node name="Grades" type="Node3D" unique_id=1038899237]
+
+[node name="Grade" parent="." unique_id=1718860108 instance=ExtResource("1_8ucjr")]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, -1, -1.2, -15)
+
+[node name="Grade2" parent="." unique_id=38048264 instance=ExtResource("1_8ucjr")]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 6.865864, -1.2, -15)
+
+[node name="Grade3" parent="." unique_id=62269354 instance=ExtResource("1_8ucjr")]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 14.719593, -1.2, -15)

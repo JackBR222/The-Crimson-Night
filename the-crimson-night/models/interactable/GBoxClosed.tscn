@@ -9,8 +9,7 @@ resource_name = "CaixaGeral"
 vertex_color_use_as_albedo = true
 albedo_texture = ExtResource("2_f6npy")
 emission_enabled = true
-emission = Color(1, 1, 1, 1)
-emission_energy_multiplier = 0.0
+emission_texture = ExtResource("2_f6npy")
 texture_filter = 0
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_yfak3"]
@@ -50,8 +49,7 @@ resource_name = "Material.002"
 vertex_color_use_as_albedo = true
 albedo_texture = ExtResource("3_06shn")
 emission_enabled = true
-emission = Color(1, 1, 1, 1)
-emission_energy_multiplier = 0.0
+emission_texture = ExtResource("3_06shn")
 texture_filter = 0
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_a1wi1"]
@@ -88,8 +86,8 @@ shadow_mesh = SubResource("ArrayMesh_a1wi1")
 
 [node name="GBoxClosed" unique_id=70106819 instance=ExtResource("1_vxqw5")]
 
-[node name="Caixa da F_" parent="." index="0" unique_id=1020891]
+[node name="Caixa da F_" parent="." index="0" unique_id=2043356347]
 mesh = SubResource("ArrayMesh_i8s3h")
 
-[node name="Porta" parent="." index="1" unique_id=64361295]
+[node name="Porta" parent="." index="1" unique_id=1025566634]
 mesh = SubResource("ArrayMesh_f08op")
